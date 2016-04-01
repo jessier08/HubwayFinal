@@ -1,7 +1,7 @@
 var stationLoc = d3.map();
 
 queue()
-    .defer(d3.csv,'data/hubway_trips.csv', parse)
+    .defer(d3.csv,'data/hubway_trips_reduced.csv', parse)
     //.defer(d3.csv, 'data/hubway_stations.csv', parseStations)
     .await(dataLoaded)
 
@@ -24,7 +24,7 @@ function dataLoaded(err,data,stations){
             return d3.descending(a.total,b.total)
         })
     
-    //console.log(nestedStations);
+    console.log(nestedStations);
     
 //    var nestByEnd = d3.nest()
 //        .key(function (d){return d.endStation})

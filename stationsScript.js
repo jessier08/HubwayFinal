@@ -32,7 +32,7 @@ function dataLoaded(err,trips, stations){
     //grouping data by start Station
     var tripsNest = d3.nest()
         .key(function(d){return d.startStation})
-        .entries(trips);
+        .map(trips, d3.map);
     
     //creating counter to find most used startStations
     var total = 0;
@@ -50,13 +50,13 @@ function dataLoaded(err,trips, stations){
     // taking only the top 10 stations in nested array 
     var topStations = nestedStations.slice(0,10);
     
-    //console.log(topStations);
+    console.log(topStations);
     
     var nestedEndStations;
     
-    topStations.forEach(function(e){
+    topStations.values().forEach(function(e){
         
-        //console.log(e);
+        console.log(e);
         
         var values = e.values;
         
