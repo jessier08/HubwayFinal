@@ -1,0 +1,11 @@
+.plot{
+    min-height:300px;
+    margin:15px 0;
+    background:white;
+}
+.custom-tooltip{
+    width:150px;
+    min-height:20px;
+    background:yellow;
+    position:absolute;
+}

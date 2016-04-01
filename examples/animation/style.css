@@ -1,0 +1,8 @@
+.plot{
+    width:100%;
+    height:600px;
+}
+    .plot #canvas{
+        width:100%;
+        height:100%;
+    }
