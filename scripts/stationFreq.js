@@ -30,8 +30,8 @@ function dataLoaded2(err,trips,stations){
     // only give the top 10 stations
     var topStations = sortedStations.slice(0,10);
     
-    console.log("top 10 start stations w trip arrays");
-    console.log(topStations);
+    //console.log("top 10 start stations w trip arrays");
+    //console.log(topStations);
     
     var topStationNumbers = [],
         NewString;    
@@ -41,12 +41,12 @@ function dataLoaded2(err,trips,stations){
             topStationNumbers.push(topStations[i].key);
     }
     
-    console.log("top 10 start station #s");
-    console.log(topStationNumbers);
+    //console.log("top 10 start station #s");
+    //console.log(topStationNumbers);
     
     
     
-    //djfjsjkfsk
+    
         
  
 };

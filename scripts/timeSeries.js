@@ -21,8 +21,8 @@ queue()
     //.defer(d3.csv, 'data/hubway_stations.csv', parseStations)
     .await(dataLoaded);
 
-function dataLoaded(err,trips){  
-    
+function dataLoaded(err,trips){
+
 ////// ALL TRIPS HISTOGRAM WITH BRUSH //////    
     // group by start time
     var cf = crossfilter(trips),
@@ -33,14 +33,80 @@ function dataLoaded(err,trips){
     globalDispatcher.on('changetimeextent',function(extent){
         d3.select('.ranges').select('.start-date').html
         (extent[0].getFullYear()+'/'+
-            (extent[0].getMonth()+1)+'/'+extent[0].getDate()+'&nbsp;-&nbsp;');
+        (extent[0].getMonth()+1)+'/'+extent[0].getDate()+'&nbsp;-&nbsp;');
         d3.select('.ranges').select('.end-date').html(extent[1].getFullYear()+'/'+(extent[1].getMonth()+1)+'/'+extent[1].getDate());
 
         // filter selected trips, return the amount of trips to DOM  
         tripsByStartTime.filterRange(extent);
         d3.select('.ranges').select('.count').html(tripsByStartTime.top(Infinity).length);
 
+
+
+
+        var newData = tripsByStartTime.top(Infinity)
+
+        var nestednewData =d3.nest()
+            .key(function(d){return d.startStation})
+            .entries(newData);
+
+        var total = 0;
+
+        nestednewData.forEach(function(startStation){
+            total = startStation.values.length;
+            startStation.total = total;
+        });
+
+        //console.log(nestednewData)
+
+        var nestedStations = nestednewData
+            .sort(function(a,b){
+                return d3.descending(a.total,b.total)
+            });
+        //console.log(nestedStations);
+
+        var topStations = nestedStations.slice(0,10);
+
+        console.log(topStations);
+        var KeyArray = [null];
+
+        var NewString = "";
+
+        for(var i=0;i<topStations.length;i++)
+        {
+            NewString = NewString + topStations[i].key + " ";
+            console.log(NewString);
+            KeyArray.push(topStations[i].key);
+
+        }
+
+        KeyArray.shift();
+
+        //console.log(KeyArray[1]);
+
+        var cf =crossfilter(trips);
+        tripsByStartStation = cf.dimension(function(d){return d.startStation});
+        tripsByStartStation.filter("KeyArray[0]");
+        var tripsByEndStation = cf.dimension(function(d){return d.endStation});
+
+        //now group by end stations, on the dimension you just created
+        var tripsGroupByEndStation = tripsByEndStation.group();
+
+        console.log(tripsGroupByEndStation.top(5));
+
+//    d3.select(".plot")
+//    .data(KeyArrary)
+//    .enter()
+//    .append("class","text")
+//    .text(function(d){return d;})
+
+
+
+
+
+
     });
+
+
 
     // create inputs for start-date histogram
     var timeExtent = [new Date(2011,7,20),new Date(2013,7,20)],
@@ -64,7 +130,7 @@ function dataLoaded(err,trips){
         .value(function(d){return d.startTime})
         .range(timeExtent)
         .bins(bins);
-    
+
     // bind data to histogram layout 
     var data = layout(trips),
         maxY = d3.max(data,function(d){return d.y});
@@ -108,10 +174,10 @@ function dataLoaded(err,trips){
             .attr('width',2)
 
         globalDispatcher.changetimeextent(extent);
-         
+
         //console.log(extent[0],extent[1]);
     }
-    
+
 };
 
 function parse(d){
