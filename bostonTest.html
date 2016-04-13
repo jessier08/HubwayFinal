@@ -3,18 +3,47 @@
 <head>
   <title>hubway</title>
 
-  <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/timeSeriesStyle.css">
+    <link rel="stylesheet" href="css/global.css"/>
+
 </head>
     
 <body>
-
     <div class="container">
+        <div id="title">HUBWAY d3 Final draft<br>
+            <div class="ranges"> 
+                <div class="date">
+                    <p>Dates : &nbsp;&nbsp;&nbsp;<span class="start-date"></span>
+                        <span class="end-date"></span>
+                    </p>
+                </div>
+                <div class="tripNum">
+                    <p>total # of trips : &nbsp;&nbsp;<span class="count"></span></p>
+                </div>
+            </div>
+        </div>
+
         <div id="plot"></div>
+        
+        <div id="trips">
+            <div id="stations"></div>
+            <div id="graphs">
+                <div id="time"></div>
+                <div id="userType"></div>
+            </div>
+        </div>
+        
+        <div id="map"></div>
+        
     </div>
     
     <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="lib/queue/queue.min.js"></script>
     <script src="lib/crossfilter/crossfilter.js"></script>
-    <script src="dataScript.js"></script>
+    <script src="scripts/timeSeries.js"></script>
+    <script src="scripts/stationFreq.js"></script>
+<!--    <script src="testingScripts/mapScript.js"></script>-->
 </body>
+    
 </html>

@@ -29,11 +29,11 @@ function dataLoaded(err,rows){
         tripsByDuration = cf.dimension(function(d){return d.duration});
 
     globalDispatcher.on('changetimeextent',function(extent){
-        d3.select('.controls').select('.start-date').html(extent[0].getFullYear()+'/'+(extent[0].getMonth()+1)+'/'+extent[0].getDate());
-        d3.select('.controls').select('.end-date').html(extent[1].getFullYear()+'/'+(extent[1].getMonth()+1)+'/'+extent[1].getDate());
+        d3.select('.ranges').select('.start-date').html(extent[0].getFullYear()+'/'+(extent[0].getMonth()+1)+'/'+extent[0].getDate());
+        d3.select('.ranges').select('.end-date').html(extent[1].getFullYear()+'/'+(extent[1].getMonth()+1)+'/'+extent[1].getDate());
 
         tripsByStartTime.filterRange(extent);
-        d3.select('.controls').select('.count').html(tripsByStartTime.top(Infinity).length);
+        d3.select('.ranges').select('.count').html(tripsByStartTime.top(Infinity).length);
 
     });
     globalDispatcher.on('changedurationextent',function(extent){

@@ -1,0 +1,82 @@
+.container{
+    width:1000px;
+    height:100%;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+/*title css*/
+#title{
+    height:30px;
+    width:100%;
+    font-size:1em;
+    font-weight: 700;
+}
+.ranges{
+    margin-top:10px;
+}
+.date{
+    width:180px;
+    float:left;
+}
+.date p{
+    font-weight:300;
+    font-size:.8em;
+}
+.tripNum{
+    width:100px;
+    float:left;
+}
+.tripNum p{
+    font-weight:300;
+    font-size:.8em;
+}
+
+/*time series css*/
+#plot{
+    height: 160px;
+    width:1000px;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:-30px;
+    margin-bottom:15px;
+}
+#trips{
+    width:425px;
+    height:560px;
+    float:left;
+    background-color:beige;
+    margin-bottom:20px;
+}
+#stations{
+    height:440;
+    width:100%;
+    background-color:#4AA948;
+    opacity:.5;
+}
+#graphs{
+    height:120px;
+    width:100%;
+}
+#time{
+    height:100%;
+    width:70%;
+    float:left;
+    background-color:#4AA948;
+    opacity:.6;
+}
+#userType{
+    height:100%;
+    width:30%;
+    float:left;
+    background-color:#4AA948;
+    opacity:.7;
+}
+#map{
+    width:550px;
+    height:560px;
+    float:left;
+    margin-left:25px;
+/*    background-color:beige;*/
+    margin-bottom:20px;
+}

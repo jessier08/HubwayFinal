@@ -1,0 +1,29 @@
+.controls{
+    height:auto;
+    padding: 15px 0;
+    font-size:2.5em;
+    font-family:Helvetica,sans-serif;
+    font-weight:lighter;
+}
+.controls .module{
+    float:left;
+    margin-left:20px;
+}
+.controls .module .legend{
+    font-size:0.5em;
+    display:block;
+}
+.guide{
+    fill:none;
+    stroke:rgb(100,100,100);
+}
+#plot .bar{
+    fill:rgb(200,200,200);
+}
+#plot .highlight{
+    fill:#4AA948;
+}
+.brush .extent{
+    fill:rgb(200,200,220);
+    fill-opacity:.1;
+}
