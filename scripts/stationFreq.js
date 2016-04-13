@@ -43,6 +43,10 @@ function dataLoaded2(err,trips,stations){
     
     console.log("top 10 start station #s");
     console.log(topStationNumbers);
+    
+    
+    
+    //djfjsjkfsk
         
  
 };
