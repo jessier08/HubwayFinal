@@ -26,16 +26,6 @@ neighborhoods.selectAll('path')
   .append('path')
   .attr('d', geoPath);
 
-// how to plot hubway stations
-//var rodents = svg.append( "g" ).attr( "id", "rodents" );
-//
-//rodents.selectAll( "path" )
-//  .data( rodents_json.features )
-//  .enter()
-//  .append( "path" )
-//  .attr( "d", geoPath );
-
-
 // load data
 queue()
     .defer(d3.csv, 'data/hubway_stations.csv', parseStations)
