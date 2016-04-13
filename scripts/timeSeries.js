@@ -29,32 +29,23 @@ function dataLoaded(err,trips){
         tripsByStartTime = cf.dimension(function(d){return d.startTime}),
         tripsByDuration = cf.dimension(function(d){return d.duration});
 
+    // putting the date range into DOM 
     globalDispatcher.on('changetimeextent',function(extent){
         d3.select('.ranges').select('.start-date').html
         (extent[0].getFullYear()+'/'+
             (extent[0].getMonth()+1)+'/'+extent[0].getDate()+'&nbsp;-&nbsp;');
         d3.select('.ranges').select('.end-date').html(extent[1].getFullYear()+'/'+(extent[1].getMonth()+1)+'/'+extent[1].getDate());
 
+        // filter selected trips, return the amount of trips to DOM  
         tripsByStartTime.filterRange(extent);
-        
         d3.select('.ranges').select('.count').html(tripsByStartTime.top(Infinity).length);
 
     });
-    
-    globalDispatcher.on('changedurationextent',function(extent){
-        tripsByDuration.filterRange(extent);
-        d3.select('.controls').select('.count').html(tripsByDuration.top(Infinity).length);
-    })
-    
-    
-    
+
     // create inputs for start-date histogram
     var timeExtent = [new Date(2011,7,20),new Date(2013,7,20)],
         binSize = d3.time.day,
         bins = d3.time.day.range(timeExtent[0],timeExtent[1]);
-    
-    // what does this code do?
-    //bins.push(timeExtent[1]);
 
     // scales and axis
     var scaleX = d3.time.scale().domain(timeExtent).range([0,w]),
@@ -94,7 +85,7 @@ function dataLoaded(err,trips){
         .attr('transform','translate(0,'+h+')')
         .call(axisX);
 
-    //Brush
+    // brush
     var brush = d3.svg.brush()
         .x(scaleX)
         .on('brush',brushmove);
@@ -118,9 +109,8 @@ function dataLoaded(err,trips){
 
         globalDispatcher.changetimeextent(extent);
          
-        console.log(extent[0],extent[1]);
+        //console.log(extent[0],extent[1]);
     }
-
     
 };
 

@@ -14,7 +14,7 @@
     margin-bottom:-20px;
 }
 .ranges{
-    margin-top:10px;
+    margin-top:20px;
 }
 .date{
     width:180px;
@@ -37,7 +37,8 @@
 #plot{
     height: 160px;
     width:1000px;
-    margin-bottom:20px;
+    margin-bottom:30px;
+    margin-top:-30px;
 }
 
 
@@ -81,4 +82,9 @@
 #neighborhoods path{
     fill:rgb(200,200,200);
     opacity:.5;
+    stroke-width:0.5px;
+    stroke: white;
+}
+.circle{
+    fill:#4AA948;
 }
