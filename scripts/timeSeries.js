@@ -1,16 +1,16 @@
 // margins for timeSeries histogram
-var m = {t:5,r:0,b:35,l:0},
-    w = d3.select('#plot').node().clientWidth - m.l - m.r,
-    h = d3.select('#plot').node().clientHeight - m.t - m.b;
+var m = {t:50,r:0,b:50,l:0},
+    w = d3.select('#plot').node().clientWidth,
+    h = d3.select('#plot').node().clientHeight;
 
 // select top div 
 var plot = d3.select('#plot').append('svg')
     .attr({
-        width: w + m.l + m.r,
-        height: h + m.t + m.b
+        width: w,
+        height: h
     })
     .append('g')
-    .attr('transform','translate('+ m.l+','+ -m.b+')');
+    .attr('transform','translate('+m.l+','+ -m.b+')');
 
 // create dispatcher 
 var globalDispatcher = d3.dispatch('changetimeextent','changedurationextent');

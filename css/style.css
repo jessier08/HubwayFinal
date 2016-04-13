@@ -11,6 +11,7 @@
     width:100%;
     font-size:1em;
     font-weight: 700;
+    margin-bottom:-20px;
 }
 .ranges{
     margin-top:10px;
@@ -36,20 +37,16 @@
 #plot{
     height: 160px;
     width:1000px;
-    margin-left:auto;
-    margin-right:auto;
-    margin-top:-30px;
-    margin-bottom:15px;
-}
-#trips{
-    width:425px;
-    height:560px;
-    float:left;
-    background-color:beige;
     margin-bottom:20px;
 }
+
+
+#trips{
+    width:425px;
+    float:left;
+}
 #stations{
-    height:440;
+    height:400;
     width:100%;
     background-color:#4AA948;
     opacity:.5;
@@ -72,11 +69,16 @@
     background-color:#4AA948;
     opacity:.7;
 }
+
+/*map css*/
 #map{
     width:550px;
     height:560px;
     float:left;
     margin-left:25px;
-/*    background-color:beige;*/
-    margin-bottom:20px;
+}
+
+#neighborhoods path{
+    fill:rgb(200,200,200);
+    opacity:.5;
 }
