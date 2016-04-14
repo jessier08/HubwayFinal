@@ -3,6 +3,7 @@
     height:100%;
     margin-left:auto;
     margin-right:auto;
+    margin-bottom:10px;
 }
 
 /*title css*/
@@ -67,14 +68,13 @@
     height:100%;
     width:30%;
     float:left;
-    background-color:#4AA948;
     opacity:.7;
 }
 
 /*map css*/
 #map{
     width:550px;
-    height:560px;
+    height:520px;
     float:left;
     margin-left:25px;
 }
@@ -86,5 +86,10 @@
     stroke: white;
 }
 .circle{
+    fill:#4AA948;
+}
+
+
+.bars{
     fill:#4AA948;
 }

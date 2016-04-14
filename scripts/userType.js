@@ -3,7 +3,7 @@ var userM = {t:0,r:0,b:0,l:0},
     userH = d3.select('#userType').node().clientHeight;
 
 var scaleX = d3.scale.ordinal(),
-    scaleY = d3.scale.linear().range([(height/1.2),0]);
+    scaleY = d3.scale.linear().range([(userH/1.2),0]);
 
 // load data
 queue()
@@ -31,18 +31,10 @@ function dataLoaded4(err, trips){
    
     var userTypes = [numCasualUser,numRegUser];
     
-    console.log(userTypes);
+    //console.log(userTypes[0],userTypes[1]);
     
     scaleY.domain([0,115000]);
-    
-    userTypePlot.selectAll('.bars')
-        .data(userTypes)
-        .enter()
-        .append('rect')
-        .attr('class','bars')
-        .attr('x', function(d) {return} )
-        .attr('width', 10)
-        .attr('y', scaleY(userTypes[1]))
+
 }
 
 function parse(d){

@@ -1,6 +1,5 @@
-var mapM = {t:50,r:0,b:50,l:0},
-    mapW = d3.select('#map').node().clientWidth - m.l - m.r,
-    mapH = d3.select('#map').node().clientHeight - m.t - m.b;
+var mapW = d3.select('#map').node().clientWidth,
+    mapH = d3.select('#map').node().clientHeight;
 
 var svg = d3.select('#map')
   .append('svg')
@@ -9,9 +8,9 @@ var svg = d3.select('#map')
 
 // creating projection for boston map
 var albersProjection = d3.geo.albers()
-  .scale( 190000 )
+  .scale( 400000 )
   .rotate( [71.057,0] )
-  .center( [0, 42.313] )
+  .center( [-0.017, 42.347] )
   .translate( [mapW/2,mapH/2] );
 
 var geoPath = d3.geo.path()
@@ -40,10 +39,14 @@ function dataLoaded3 (err, stations){
         .enter()
         .append('circle')
         .attr('r',3)
-        .attr('cx', function(d){return albersProjection(d.lng)})
-        .attr('cy', function(d){return albersProjection(d.lat)})
+         .attr('cx', function(d){
+            var xy = albersProjection(d.lngLat);
+            return xy[0]})
+        .attr('cy', function(d){
+            var xy = albersProjection(d.lngLat);
+            return xy[1]})
     
-    stationDots.exit().remove();
+    //stationDots.exit().remove();
     
 };
 
@@ -51,8 +54,7 @@ function parseStations(d){
     //setting the mapping structure (d3.map) - a look up table
     //here setting id | lngLat, station Name
     return {
-        lng: +d.lng, 
-        lat: +d.lat,
+        lngLat: [+d.lng,+d.lat],
         stationName: d.station
     };
 }
