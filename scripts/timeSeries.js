@@ -26,8 +26,7 @@ function dataLoaded(err,trips){
 ////// ALL TRIPS HISTOGRAM WITH BRUSH //////    
     // group by start time
     var cf = crossfilter(trips),
-        tripsByStartTime = cf.dimension(function(d){return d.startTime}),
-        tripsByDuration = cf.dimension(function(d){return d.duration});
+        tripsByStartTime = cf.dimension(function(d){return d.startTime});
 
     // putting the date range into DOM 
     globalDispatcher.on('changetimeextent',function(extent){

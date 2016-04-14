@@ -3,7 +3,7 @@
     height:100%;
     margin-left:auto;
     margin-right:auto;
-    margin-bottom:10px;
+    margin-bottom:50px;
 }
 
 /*title css*/
@@ -11,7 +11,7 @@
     height:30px;
     width:100%;
     font-size:1em;
-    font-weight: 700;
+    font-weight:700;
     margin-bottom:-20px;
 }
 .ranges{
@@ -41,22 +41,32 @@
     margin-bottom:30px;
     margin-top:-30px;
 }
-
-
 #trips{
     width:425px;
     float:left;
 }
 #stations{
-    height:400;
+    height:350;
     width:100%;
-    background-color:#4AA948;
-    opacity:.5;
 }
+#stations p{
+    font-weight:300;
+    font-size:.8em;
+}
+.start{
+    width:45%;
+    float:left;
+}
+.end{
+    width:50%;
+    float:left;
+}
+
 #graphs{
-    height:120px;
+    height:150px;
     width:100%;
 }
+
 #time{
     height:100%;
     width:70%;
@@ -70,11 +80,30 @@
     float:left;
     opacity:.7;
 }
+.userTypeText{
+    width:50%;
+    text-align: center;
+    float:left;
+    font-weight:300;
+    font-size:.8em;
+    padding-top:100%;
+}
+#casualBar #regBar{
+    width:50%;
+    height:90%;
+    background-color:aqua;
+}
+#casualTitle #regTitle{
+    width:50%;
+    height:10%;
+    background-color:green;
+}
+
 
 /*map css*/
 #map{
     width:550px;
-    height:520px;
+    height:500px;
     float:left;
     margin-left:25px;
 }
@@ -92,4 +121,8 @@
 
 .bars{
     fill:#4AA948;
+}
+
+.stationNames{
+    font-size:2em;
 }

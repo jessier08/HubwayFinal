@@ -3,7 +3,7 @@ var userM = {t:0,r:0,b:0,l:0},
     userH = d3.select('#userType').node().clientHeight;
 
 var scaleX = d3.scale.ordinal(),
-    scaleY = d3.scale.linear().range([(userH/1.2),0]);
+    scaleY = d3.scale.linear().range([userH/1.5,0]);
 
 // load data
 queue()
@@ -16,8 +16,7 @@ function dataLoaded4(err, trips){
     .attr({
         width: userW,
         height: userH
-    })
-    .append('g');
+    });
     
     var crossF = crossfilter(trips),
         byUserType = crossF.dimension(function(d){return d.userType}),
@@ -34,6 +33,33 @@ function dataLoaded4(err, trips){
     //console.log(userTypes[0],userTypes[1]);
     
     scaleY.domain([0,115000]);
+    
+    var casual = userTypePlot.append('g').attr('class','casual');
+    casual.append('rect')
+        .attr('class','bars')
+        .attr('x', userW/3)
+        .attr('y', scaleY(userTypes[0]))
+        .attr('width', 10)
+        .attr('height', userH - scaleY(userTypes[0]));
+    casual.append('text')
+        .text('casual')
+        .attr('x',userW/3)
+        .attr('y',scaleY(userTypes[0]))
+        .attr('class','userTypeText');
+    
+    var reg = userTypePlot.append('g').attr('class','reg');
+    reg.append('rect')
+        .attr('class','bars')
+        .attr('x', userW/1.5)
+        .attr('y', scaleY(userTypes[1]))
+        .attr('width', 10)
+        .attr('height', userH - scaleY(userTypes[1]));
+    reg.append('text')
+        .text('registered')
+        .attr('x',userW/1.5)
+        .attr('y',scaleY(userTypes[1]))
+        .attr('class','userTypeText');
+    
 
 }
 
