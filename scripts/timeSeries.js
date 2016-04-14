@@ -12,14 +12,14 @@ var plot = d3.select('#plot').append('svg')
     .append('g')
     .attr('transform','translate('+m.l+','+ -m.b+')');
 
-var plot1 = d3.select('#time').append('svg')
+/*var plot1 = d3.select('#time').append('svg')
     .attr('width',w+ m.l+ m.r)
     .attr('height',h+ m.t+ m.b)
     .append('g').attr('class','histogram')
-    .attr('transform','translate('+ m.l+','+ m.t+')');
+    .attr('transform','translate('+ m.l+','+ m.t+')');*/
 
 // create dispatcher 
-var globalDispatcher = d3.dispatch('changetimeextent','changedurationextent');
+var globalDispatcher = d3.dispatch('changetimeextent');
 
 // load data
 queue()
@@ -119,18 +119,33 @@ function dataLoaded(err,trips){
 
 
         //write startstations text
-        d3.selectAll("text")
-            .text('')
-            .remove();
-        /*d3.select("svg")
-            .remove();*/
+        if(d3.select('#starttext'))
+        {
+            d3.select('#starttext')
+                .remove();
+
+            d3.select('#endstart')
+                .remove();
+        }
+
+        if(d3.select('#start'))
+        {
+            d3.select('#start')
+                .remove();
+
+            d3.select('#end')
+                .remove();
+        }
+
 
         var svg = d3.select("#stations")
             .append('svg')
+            .attr('id','start')
             .attr("width",425)
             .attr("height",400);
 
         var FirstText =svg.append("text")
+            .attr("id","starttext")
             .attr("width",40)
             .attr("height",200);
 
@@ -150,11 +165,16 @@ function dataLoaded(err,trips){
         //write endstations text
         var svg = d3.select("#stations")
             .append('svg')
+            .attr('id','end')
             .attr("width",425)
-            .attr("height",400);
+            .attr("height",400)
+            .style("margin-left",-150)
+            .style("margin-top",0)
+            .style("position","absolute");
 
         var SecondText =svg.append("text")
-            .attr("width",200)
+            .attr("id","endtext")
+            .attr("width",40)
             .attr("height",200);
 
         SecondText.selectAll("tspan")
@@ -168,15 +188,6 @@ function dataLoaded(err,trips){
             })
             .attr("font-size",18)
             .attr("font-family","Helvetica");
-
-
-
-
-
-
-
-
-
 
 
     });
@@ -204,8 +215,8 @@ function dataLoaded(err,trips){
         .value(function(d){return d.startTime})
         .range(timeExtent)
         .bins(bins);
-    
-    // bind data to histogram layout 
+
+    // bind data to histogram layout
     var data = layout(trips),
         maxY = d3.max(data,function(d){return d.y});
 
@@ -254,7 +265,7 @@ function dataLoaded(err,trips){
 
 
 
-        var layout = d3.layout.histogram()
+        /*var layout = d3.layout.histogram()
             .value(function(d){return d.startTime})
             .range([new Date(2011,6,28),new Date(2013,11,31)])
             .bins(d3.range(new Date(2011,6,28), new Date(2013,11,31), 1000*3600*24));
@@ -313,7 +324,7 @@ function dataLoaded(err,trips){
 
 
          
-        //console.log(extent[0],extent[1]);
+        //console.log(extent[0],extent[1]);*/
 
     
 };
