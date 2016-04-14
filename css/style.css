@@ -25,7 +25,7 @@
     font-size:.8em;
 }
 .tripNum{
-    width:100px;
+    width:200px;
     float:left;
 }
 .tripNum p{
@@ -47,7 +47,7 @@
     float:left;
 }
 #stations{
-    height:400;
+    height:400px;
     width:100%;
     background-color:#4AA948;
     opacity:.5;

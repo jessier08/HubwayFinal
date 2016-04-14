@@ -42,9 +42,9 @@ queue()
     .await(dataLoaded3);
 
 function dataLoaded3 (err, stations){
-    
+
     var stationDots = svg.append('g').attr('class','circle')
-    
+
     stationDots.selectAll('.circle')
         .data(stations)
         .enter()
@@ -52,16 +52,16 @@ function dataLoaded3 (err, stations){
         .attr('r',3)
         .attr('cx', function(d){return albersProjection(d.lng)})
         .attr('cy', function(d){return albersProjection(d.lat)})
-    
+
     stationDots.exit().remove();
-    
+
 };
 
 function parseStations(d){
     //setting the mapping structure (d3.map) - a look up table
     //here setting id | lngLat, station Name
     return {
-        lng: +d.lng, 
+        lng: +d.lng,
         lat: +d.lat,
         stationName: d.station
     };
