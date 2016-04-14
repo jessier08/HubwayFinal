@@ -1,4 +1,4 @@
-var mapM = {t:50,r:0,b:50,l:0},
+var m = {t:50,r:0,b:50,l:0},
     mapW = d3.select('#map').node().clientWidth - m.l - m.r,
     mapH = d3.select('#map').node().clientHeight - m.t - m.b;
 
@@ -32,17 +32,28 @@ queue()
     .await(dataLoaded3);
 
 function dataLoaded3 (err, stations){
+<<<<<<< HEAD
 
     var stationDots = svg.append('g').attr('class','circle')
 
+=======
+    
+    var stationDots = svg.append('g').attr('class','circle');
+    
+>>>>>>> master
     stationDots.selectAll('.circle')
         .data(stations)
         .enter()
         .append('circle')
         .attr('r',3)
         .attr('cx', function(d){return albersProjection(d.lng)})
+<<<<<<< HEAD
         .attr('cy', function(d){return albersProjection(d.lat)})
 
+=======
+        .attr('cy', function(d){return albersProjection(d.lat)});
+    
+>>>>>>> master
     stationDots.exit().remove();
 
 };

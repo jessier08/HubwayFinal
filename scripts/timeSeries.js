@@ -27,8 +27,8 @@ queue()
     //.defer(d3.csv, 'data/hubway_stations.csv', parseStations)
     .await(dataLoaded);
 
-function dataLoaded(err,trips){  
-    
+function dataLoaded(err,trips){
+
 ////// ALL TRIPS HISTOGRAM WITH BRUSH //////    
     // group by start time
     var cf = crossfilter(trips),
@@ -46,6 +46,12 @@ function dataLoaded(err,trips){
         tripsByStartTime.filterRange(extent);
         d3.select('.ranges').select('.count').html(tripsByStartTime.top(Infinity).length);
 
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> master
         var newData = tripsByStartTime.top(Infinity)
 
         var nestednewData =d3.nest()
@@ -57,19 +63,28 @@ function dataLoaded(err,trips){
         nestednewData.forEach(function(startStation){
             total = startStation.values.length;
             startStation.total = total;
+<<<<<<< HEAD
         })
+=======
+        });
+>>>>>>> master
 
         //console.log(nestednewData)
 
         var nestedStations = nestednewData
             .sort(function(a,b){
                 return d3.descending(a.total,b.total)
+<<<<<<< HEAD
             })
+=======
+            });
+>>>>>>> master
         //console.log(nestedStations);
 
         var topStations = nestedStations.slice(0,10);
 
         console.log(topStations);
+<<<<<<< HEAD
         var KeyArray1 = [null];
 
         var NewString1 = "";
@@ -93,11 +108,33 @@ function dataLoaded(err,trips){
         tripsByStartStation = cf.dimension(function(d){return d.startStation});
         tripsByStartStation.filter(KeyArray1);
         //console.log(tripsByStartStation.top(10));
+=======
+        var KeyArray = [null];
+
+        var NewString = "";
+
+        for(var i=0;i<topStations.length;i++)
+        {
+            NewString = NewString + topStations[i].key + " ";
+            console.log(NewString);
+            KeyArray.push(topStations[i].key);
+
+        }
+
+        KeyArray.shift();
+
+        //console.log(KeyArray[1]);
+
+        var cf =crossfilter(trips);
+        tripsByStartStation = cf.dimension(function(d){return d.startStation});
+        tripsByStartStation.filter("KeyArray[0]");
+>>>>>>> master
         var tripsByEndStation = cf.dimension(function(d){return d.endStation});
 
         //now group by end stations, on the dimension you just created
         var tripsGroupByEndStation = tripsByEndStation.group();
 
+<<<<<<< HEAD
         console.log(tripsGroupByEndStation.top(10));
 
         var KeyArray2 = [null];
@@ -188,9 +225,24 @@ function dataLoaded(err,trips){
             })
             .attr("font-size",18)
             .attr("font-family","Helvetica");
+=======
+        console.log(tripsGroupByEndStation.top(5));
+
+//    d3.select(".plot")
+//    .data(KeyArrary)
+//    .enter()
+//    .append("class","text")
+//    .text(function(d){return d;})
+
+
+
+
+>>>>>>> master
 
 
     });
+
+
 
     // create inputs for start-date histogram
 
@@ -216,7 +268,11 @@ function dataLoaded(err,trips){
         .range(timeExtent)
         .bins(bins);
 
+<<<<<<< HEAD
     // bind data to histogram layout
+=======
+    // bind data to histogram layout 
+>>>>>>> master
     var data = layout(trips),
         maxY = d3.max(data,function(d){return d.y});
 
@@ -260,6 +316,7 @@ function dataLoaded(err,trips){
 
         globalDispatcher.changetimeextent(extent);
 
+<<<<<<< HEAD
 
     }
 
@@ -327,6 +384,11 @@ function dataLoaded(err,trips){
         //console.log(extent[0],extent[1]);*/
 
     
+=======
+        //console.log(extent[0],extent[1]);
+    }
+
+>>>>>>> master
 };
 
 function parse(d){
