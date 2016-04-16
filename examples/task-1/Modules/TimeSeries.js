@@ -13,7 +13,7 @@ d3.TimeSeries = function(){
         binSize ,//specify amount of time, or value
         scaleX = d3.time.scale().range([0,chartW]).domain(timeRange),
         scaleY = d3.scale.linear().range([chartH,0]).domain([0,100]);
-
+ 
     //function TimeSeries eventually returns
     function exports(selection){
         //define scales again

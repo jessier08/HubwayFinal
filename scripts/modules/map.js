@@ -1,9 +1,9 @@
 var MapPlot = function mapPlot(){
-    
+
     map.append('svg')
         .attr('width', mapW)
         .attr('height', mapH);
-
+        
     // creating projection for boston map
     var albersProjection = d3.geo.albers()
         .scale( 400000 )
@@ -13,9 +13,9 @@ var MapPlot = function mapPlot(){
 
     var geoPath = d3.geo.path()
         .projection(albersProjection);
-
+    
     // drawing boston neighborhoods
-    var neighborhoods = svg.append('g').attr('id', 'neighborhoods');
+    var neighborhoods = map.append('g').attr('id', 'neighborhoods');
 
     neighborhoods.selectAll('path')
         .data( neighborhoods_json.features)
@@ -38,6 +38,4 @@ var MapPlot = function mapPlot(){
             return xy[1]})
     
     //stationDots.exit().remove();
-    
-    
-}
+};

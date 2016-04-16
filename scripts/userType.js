@@ -37,29 +37,20 @@ function dataLoaded4(err, trips){
     var casual = userTypePlot.append('g').attr('class','casual');
     casual.append('rect')
         .attr('class','bars')
-        .attr('x', userW/3)
+        .attr('x', userW/4)
         .attr('y', scaleY(userTypes[0]))
         .attr('width', 10)
-        .attr('height', userH - scaleY(userTypes[0]));
-    casual.append('text')
-        .text('casual')
-        .attr('x',userW/3)
-        .attr('y',scaleY(userTypes[0]))
-        .attr('class','userTypeText');
+        .attr('height', userH - scaleY(userTypes[0]))
+        .attr('transform','translate(-5,0)');
     
     var reg = userTypePlot.append('g').attr('class','reg');
     reg.append('rect')
         .attr('class','bars')
-        .attr('x', userW/1.5)
+        .attr('x', userW-userW/4)
         .attr('y', scaleY(userTypes[1]))
         .attr('width', 10)
-        .attr('height', userH - scaleY(userTypes[1]));
-    reg.append('text')
-        .text('registered')
-        .attr('x',userW/1.5)
-        .attr('y',scaleY(userTypes[1]))
-        .attr('class','userTypeText');
-    
+        .attr('height', userH - scaleY(userTypes[1]))
+        .attr('transform','translate(-5,0)')
 
 }
 

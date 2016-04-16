@@ -66,7 +66,6 @@
     height:150px;
     width:100%;
 }
-
 #time{
     height:100%;
     width:70%;
@@ -74,11 +73,27 @@
     background-color:#4AA948;
     opacity:.6;
 }
-#userType{
+#userTypeGraph{
     height:100%;
     width:30%;
     float:left;
-    opacity:.7;
+}
+#userType{
+    height:85%;
+    width:100%;
+}
+#userTypeLabel {
+    height:10%;
+    width:100%;
+}
+
+#userTypeLabel p{
+    width:50%;
+    text-align: center;
+    font-size:.8em;
+    font-weight: 300;
+    opacity:.4;
+    float:left;
 }
 .userTypeText{
     width:50%;
