@@ -1,0 +1,89 @@
+.container{
+    width:1000px;
+    height:100%;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+/*title css*/
+#title{
+    height:30px;
+    width:100%;
+    font-size:1em;
+    font-weight: 700;
+    margin-bottom:-20px;
+}
+.ranges{
+    margin-top:20px;
+}
+.date{
+    width:180px;
+    float:left;
+}
+.date p{
+    font-weight:300;
+    font-size:.8em;
+}
+.tripNum{
+    width:200px;
+    float:left;
+}
+.tripNum p{
+    font-weight:300;
+    font-size:.8em;
+}
+
+/*time series css*/
+#plot{
+    height: 160px;
+    width:1000px;
+    margin-bottom:30px;
+    margin-top:-30px;
+}
+
+
+#trips{
+    width:425px;
+    float:left;
+}
+#stations{
+    height:400px;
+    width:100%;
+
+}
+#graphs{
+    height:120px;
+    width:100%;
+}
+#time{
+    height:100%;
+    width:70%;
+    float:left;
+    background-color:#4AA948;
+    opacity:.6;
+}
+#userType{
+    height:100%;
+    width:30%;
+    float:left;
+    background-color:#4AA948;
+    opacity:.7;
+}
+
+/*map css*/
+#map{
+    width:550px;
+    height:560px;
+    float:left;
+    margin-left:25px;
+}
+
+#neighborhoods path{
+    fill:rgb(200,200,200);
+    opacity:.5;
+    stroke-width:0.5px;
+    stroke: white;
+}
+.circle{
+    fill:#4AA948;
+}

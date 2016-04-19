@@ -21,14 +21,24 @@ var plot = d3.select('#plot').append('svg')
 // create dispatcher 
 var globalDispatcher = d3.dispatch('changetimeextent');
 
+
+
+stationsName = d3.map();
 // load data
-queue()
-    .defer(d3.csv,'data/hubway_trips_reduced.csv', parse)
-    //.defer(d3.csv, 'data/hubway_stations.csv', parseStations)
+var queue = d3_queue.queue()
+    .defer(d3.csv,'../data/hubway_trips_reduced.csv',parse)
+    .defer(d3.csv,'../data/hubway_stations.csv',parseStations)
     .await(dataLoaded);
 
-function dataLoaded(err,trips){
-
+function dataLoaded(err,trips,stations){
+    
+    
+    trips.forEach(function(d){
+        d.startStationName = stationsName.get(d.startStation);
+        d.endStationName = stationsName.get(d.endStation);
+    })
+    //console.log("trips",trips)
+    
 ////// ALL TRIPS HISTOGRAM WITH BRUSH //////    
     // group by start time
     var cf = crossfilter(trips),
@@ -46,12 +56,6 @@ function dataLoaded(err,trips){
         tripsByStartTime.filterRange(extent);
         d3.select('.ranges').select('.count').html(tripsByStartTime.top(Infinity).length);
 
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> master
         var newData = tripsByStartTime.top(Infinity)
 
         var nestednewData =d3.nest()
@@ -61,80 +65,56 @@ function dataLoaded(err,trips){
         var total = 0;
 
         nestednewData.forEach(function(startStation){
+//            console.log("startStation", startStation)
+            startStation.name = startStation.values[0].startStationName
             total = startStation.values.length;
             startStation.total = total;
-<<<<<<< HEAD
         })
-=======
-        });
->>>>>>> master
 
         //console.log(nestednewData)
 
         var nestedStations = nestednewData
             .sort(function(a,b){
                 return d3.descending(a.total,b.total)
-<<<<<<< HEAD
             })
-=======
-            });
->>>>>>> master
         //console.log(nestedStations);
 
         var topStations = nestedStations.slice(0,10);
 
-        console.log(topStations);
-<<<<<<< HEAD
+        console.log("topStations",topStations);
+        
+        
+        //keyarrary1
         var KeyArray1 = [null];
 
         var NewString1 = "";
 
         for(var i=0;i<topStations.length;i++)
         {
-            NewString1 = NewString1 + topStations[i].key + " ";
-            console.log(NewString1);
-            KeyArray1.push(topStations[i].key);
+            NewString1 = NewString1 + topStations[i].name + " ";
+            //console.log(NewString1);
+            KeyArray1.push(topStations[i].name);
         }
 
         KeyArray1.shift();
 
         console.log(KeyArray1);
         console.log(KeyArray1[0]);
+        
 
 
 
        //most used endstation
         var cf =crossfilter(trips)
-        tripsByStartStation = cf.dimension(function(d){return d.startStation});
+        tripsByStartStation = cf.dimension(function(d){return d.startStationName});
         tripsByStartStation.filter(KeyArray1);
-        //console.log(tripsByStartStation.top(10));
-=======
-        var KeyArray = [null];
-
-        var NewString = "";
-
-        for(var i=0;i<topStations.length;i++)
-        {
-            NewString = NewString + topStations[i].key + " ";
-            console.log(NewString);
-            KeyArray.push(topStations[i].key);
-
-        }
-
-        KeyArray.shift();
-
-        //console.log(KeyArray[1]);
-
-        var cf =crossfilter(trips);
-        tripsByStartStation = cf.dimension(function(d){return d.startStation});
-        tripsByStartStation.filter("KeyArray[0]");
->>>>>>> master
-        var tripsByEndStation = cf.dimension(function(d){return d.endStation});
+        //console.log(topStations.key)
+        console.log(tripsByStartStation.top(10));
+        var tripsByEndStation = cf.dimension(function(d){return d.endStationName});
 
         //now group by end stations, on the dimension you just created
         var tripsGroupByEndStation = tripsByEndStation.group();
 
-<<<<<<< HEAD
         console.log(tripsGroupByEndStation.top(10));
 
         var KeyArray2 = [null];
@@ -144,7 +124,7 @@ function dataLoaded(err,trips){
         for(var i=0;i<tripsGroupByEndStation.top(10).length;i++)
         {
             NewString2 = NewString2 + tripsGroupByEndStation.top(10)[i].key + " ";
-            console.log(NewString2);
+            //console.log(NewString2);
             KeyArray2.push(tripsGroupByEndStation.top(10)[i].key);
         }
 
@@ -152,6 +132,36 @@ function dataLoaded(err,trips){
 
         console.log(KeyArray2);
         console.log(KeyArray2[0]);
+        
+        
+        //single keyarray
+        tripsByStartStation1 = cf.dimension(function(d){return d.startStationName});
+        tripsByStartStation1.filter(KeyArray1[0]);
+        //console.log(topStations.key)
+        //console.log(tripsByStartStation1.top(5));
+        var tripsByEndStation1 = cf.dimension(function(d){return d.endStationName});
+
+        //now group by end stations, on the dimension you just created
+        var tripsGroupByEndStation1 = tripsByEndStation1.group();
+
+        var KeyArray11 = [null];
+
+        var NewString11 = "";
+
+        for(var i=0;i<tripsGroupByEndStation.top(5).length;i++)
+        {
+            NewString11 = NewString11 + tripsGroupByEndStation1.top(5)[i].key + " ";
+            //console.log(NewString2);
+            KeyArray11.push(tripsGroupByEndStation1.top(5)[i].key);
+        }
+
+        KeyArray11.shift();
+
+        console.log(KeyArray11);
+        console.log(KeyArray11[0]);
+        
+        
+        
 
 
 
@@ -184,18 +194,30 @@ function dataLoaded(err,trips){
         var FirstText =svg.append("text")
             .attr("id","starttext")
             .attr("width",40)
-            .attr("height",200);
+            .attr("height",200)
+            .on("click",function()
+            {
+                svg.append("line")
+                   .attr("x1",function(d,i){return d.id})
+                   .attr("y1",function(d,i){})
+                   .attr("x2",function(d,i){return d.id})
+                   .attr("y2",function(d,i){return d.id})
+            });
 
         FirstText.selectAll("tspan")
             .data(KeyArray1)
             .enter()
             .append("tspan")
             .attr("x",FirstText.attr("width"))
-            .attr("dy","2em")
+            .attr("dy","3.5em")
+            .attr("id",function(d,i)
+            {
+                return i;
+            })
             .text(function(d){
                 return d;
             })
-            .attr("font-size",18)
+            .attr("font-size",10)
             .attr("font-family","Helvetica");
 
 
@@ -205,7 +227,7 @@ function dataLoaded(err,trips){
             .attr('id','end')
             .attr("width",425)
             .attr("height",400)
-            .style("margin-left",-150)
+            .style("margin-left",-180)
             .style("margin-top",0)
             .style("position","absolute");
 
@@ -218,31 +240,20 @@ function dataLoaded(err,trips){
             .data(KeyArray2)
             .enter()
             .append("tspan")
+            .attr("id",function(d,i)
+            {
+                  return i;
+            })
             .attr("x",SecondText.attr("width"))
-            .attr("dy","2em")
+            .attr("dy","3.5em")
             .text(function(d){
                 return d;
             })
-            .attr("font-size",18)
+            .attr("font-size",10)
             .attr("font-family","Helvetica");
-=======
-        console.log(tripsGroupByEndStation.top(5));
-
-//    d3.select(".plot")
-//    .data(KeyArrary)
-//    .enter()
-//    .append("class","text")
-//    .text(function(d){return d;})
-
-
-
-
->>>>>>> master
 
 
     });
-
-
 
     // create inputs for start-date histogram
 
@@ -268,11 +279,7 @@ function dataLoaded(err,trips){
         .range(timeExtent)
         .bins(bins);
 
-<<<<<<< HEAD
     // bind data to histogram layout
-=======
-    // bind data to histogram layout 
->>>>>>> master
     var data = layout(trips),
         maxY = d3.max(data,function(d){return d.y});
 
@@ -316,7 +323,6 @@ function dataLoaded(err,trips){
 
         globalDispatcher.changetimeextent(extent);
 
-<<<<<<< HEAD
 
     }
 
@@ -384,11 +390,6 @@ function dataLoaded(err,trips){
         //console.log(extent[0],extent[1]);*/
 
     
-=======
-        //console.log(extent[0],extent[1]);
-    }
-
->>>>>>> master
 };
 
 function parse(d){
@@ -401,8 +402,9 @@ function parse(d){
         startStation: d.strt_statn,
         endStation: d.end_statn,
         gender:d.gender,//can read string d.gender=="" ? "none" :d.gender
-        birthDate:+d.birth_date
-    }
+        birthDate:+d.birth_date,
+        data:d3.map
+    };
 }
 
 function parseDate(date){
@@ -411,3 +413,20 @@ function parseDate(date){
 
     return new Date(+day[2],+day[0]-1, +day[1], +time[0], +time[1]);
 }
+
+function parseStations(d){
+    //console.log("d",d)
+    stationsName.set(d.id,d.station); 
+   return {
+       id: d.id,
+       stationName:d.station
+   };
+  
+}
+
+//function parseStations(s){
+//    d3.select('.station-list')
+//        .append('option')
+//        .html(s.station)
+//        .attr('value', s.id);
+//}
