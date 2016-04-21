@@ -290,6 +290,20 @@ function dataLoaded(err,trips,stations){
     
 
 ////// APPENDING MAP //////       
+    
+    
+//    var map = plot.selectAll('path')
+//		.data(neighborhoods_json.features);
+//
+//		map.enter()
+//		.append('path')
+//		.style('fill','rgb(234,234,229)')
+//		.style('stroke', 'rgb(180,180,180)')
+//		.style('fill-opacity','1')
+//		.style('stroke-opacity', '1')
+//		.attr('d',geoPath);
+
+    
     // creating projection for boston 
     var albersProjection = d3.geo.albers()
         .scale( 400000 )
@@ -304,7 +318,7 @@ function dataLoaded(err,trips,stations){
     var neighborhoods = map.append('g').attr('id', 'neighborhoods');
 
     neighborhoods.selectAll('path')
-        .data( neighborhoods_json.features)
+        .data(neighborhoods_json.features)
         .enter()
         .append('path')
         .attr('d', geoPath);
