@@ -52,10 +52,14 @@ text{
 .axis-x{
     font-size:.6em;
 }
+
+
 #trips{
     width:650px;
     float:left;
 }
+
+/*top stations css*/
 #stations{
     height:350;
     width:100%;
@@ -76,17 +80,22 @@ text{
     float:right;
 }
 
+
 #graphs{
     height:150px;
     width:100%;
 }
+
+/*hourly usage series css*/
 #time{
     height:100%;
     width:70%;
     float:left;
-    background-color:#4AA948;
     opacity:.6;
 }
+
+
+/*user type graph css*/
 #userTypeGraph{
     height:100%;
     width:30%;
@@ -106,27 +115,9 @@ text{
     text-align: center;
     font-size:.8em;
     font-weight: 300;
-    opacity:.4;
     float:left;
 }
-.userTypeText{
-    width:50%;
-    text-align: center;
-    float:left;
-    font-weight:300;
-    font-size:.8em;
-    padding-top:100%;
-}
-#casualBar #regBar{
-    width:50%;
-    height:90%;
-    background-color:aqua;
-}
-#casualTitle #regTitle{
-    width:50%;
-    height:10%;
-    background-color:green;
-}
+
 
 
 /*map css*/
@@ -145,12 +136,10 @@ text{
 .circle{
     fill:#4AA948;
 }
-
-
 .bars{
     fill:#4AA948;
 }
-
-.stationNames{
-    font-size:2em;
+.green{
+    font-size:.9em;
+    fill:#4AA948;
 }

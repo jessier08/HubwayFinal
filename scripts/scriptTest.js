@@ -32,7 +32,11 @@ var userScaleX = d3.scale.ordinal(),
 var globalDispatcher = d3.dispatch('changetimeextent');
 
 // create map for station names
-var stationsName = d3.map();
+var stationsName = d3.map(),
+    stationsSpot = d3.map();
+
+console.log(stationsName);
+console.log(stationsSpot);
 
 // LOAD DATA
 queue()
@@ -48,11 +52,15 @@ function dataLoaded(err,trips,stations){
         d.endStationName = stationsName.get(d.endStation);
     })
     
+//    trips.forEach(function(d){
+//        d.startStationSpot = stationsSpot.get(d.startStation);
+//        d.endStationsSpot = stationsSpot.get(d.endStation);
+//    })
+    
 ////// DATA FILTERING / SORTING //////
     // group by start time
     var cf = crossfilter(trips),
         tripsByStartTime = cf.dimension(function(d){return d.startTime});
-        //tripsByUserType = cf.dimension(function(d){return d.userType});
         //tripsByDuration = cf.dimension(function(d){return d.duration});
 
     // START GLOBAL DISPATCH //
@@ -70,7 +78,9 @@ function dataLoaded(err,trips,stations){
         d3.select('.ranges').select('.count').html(tripsByStartTime.top(Infinity).length);
 
         var newData = tripsByStartTime.top(Infinity);
-
+        
+        //console.log(newData);
+        
         // nest brushed data filtered by start stations
         var nestednewData = d3.nest()
             .key(function(d){return d.startStation})
@@ -93,6 +103,7 @@ function dataLoaded(err,trips,stations){
 
         // get top 10 most freq start stations
         var topStations = nestedStations.slice(0,10);
+        //console.log(topStations);
         
         // placeholders for start station names
         var topStationsArray = [],
@@ -104,11 +115,6 @@ function dataLoaded(err,trips,stations){
             //console.log(topStationsString);
             topStationsArray.push(topStations[i].name);
         }
-
-        // WHY IS THIS SHIFTING?
-        topStationsArray.shift();
-        //console.log(topStationsArray);
-        //console.log(topStationsArray[0]);
         
        // make crossfilter to find most freq end stations from top station list
         var cf = crossfilter(trips)
@@ -132,10 +138,6 @@ function dataLoaded(err,trips,stations){
             //console.log(topEndStationsString);
             topEndStationsArray.push(topEndStations[i].key);
         }
-
-        topEndStationsArray.shift();
-        //console.log(KeyArray2);
-        //console.log(KeyArray2[0]);
         
 ////// PLOTTING POPULAR STATION TEXT //////
         if(d3.select('#start')){
@@ -144,21 +146,15 @@ function dataLoaded(err,trips,stations){
         if(d3.select('#end')){
             d3.select('#end').remove();  
         }
-        // i think above is allowing updates, but without .exit()?????
         
         // append svg to print start stations to DOM
         var startSvg = d3.select('#startBox')
             .append('svg')
-            .attr('id','start');
+            .attr('id','start')
+            .attr('height',350);
 
         var startText = startSvg.append('text');
-//            .on("click",function(){
-//                svg.append("line")
-//                   .attr("x1",function(d,i){return d.id})
-//                   .attr("y1",function(d,i){})
-//                   .attr("x2",function(d,i){return d.id})
-//                   .attr("y2",function(d,i){return d.id})
-//            });
+
         startText.selectAll('tspan')
             .data(topStationsArray)
             .enter()
@@ -168,12 +164,22 @@ function dataLoaded(err,trips,stations){
             .attr('id',function(d,i){return i;})
             .text(function(d){return d;})
             .attr('text-anchor','end')
-            .attr('class','stationText');
+            .attr('class','stationText')
+            .on('mouseover', function(){
+                d3.select(this).attr('class','green');
+                //console.log(this.id);
+            })
+            .on('mouseout', function(){
+                d3.select(this).attr('class','stationText');
+                //console.log(this.id);
+            })
+            ;
 
         //write endstations text
         var endSvg = d3.select('#endBox')
             .append('svg')
-            .attr('id','end');
+            .attr('id','end')
+            .attr('height',350);
 
         var endText = endSvg.append('text');
 
@@ -188,33 +194,56 @@ function dataLoaded(err,trips,stations){
             .attr('class','stationText');
         
 
-        // USER TYPE GRAPH
-//        var casualUser = tripsByUserType.filter('Casual').top(Infinity),
-//            numCasualUser = casualUser.length;
-//    
-//        byUserType.filter(null);
-//    
-//        var regUser = tripsByUserType.filter('Registered').top(Infinity),
-//            numRegUser = regUser.length;
-//   
-//        var userTypes = [numCasualUser,numRegUser];
-//    
-//        //console.log(userTypes[0],userTypes[1]);
-//    
-//        userScaleY.domain([0,115000]);
-//    
-//         var casual = userTypePlot.select('.casual')
-//            .data(userTypes[0])
-//            .enter()
-//            .attr('class','casual')
-//            .append('rect')
-//            .attr('class','bars')
-//            .attr('x', userW/4)
-//            .attr('y', userScaleY(userTypes[0]))
-//            .attr('width', 10)
-//            .attr('height', userH - userScaleY(userTypes[0]))
-//            .attr('transform','translate(-5,0)');
+    ////// USER TYPE GRAPH //////
+        var crossF = crossfilter(topStations),
+            tripsByUserType = cf.dimension(function(d){return d.userType});
+        
+        var casualUser = tripsByUserType.filter('Casual').top(Infinity),
+            numCasualUser = casualUser.length;
     
+        tripsByUserType.filter(null);
+    
+        var regUser = tripsByUserType.filter('Registered').top(Infinity),
+            numRegUser = regUser.length;
+   
+        var userTypes = [numCasualUser,numRegUser];
+        
+        //console.log(userTypes);
+        //console.log(userTypes[0],userTypes[1]);
+    
+        userScaleY.domain([0,115000]);
+   
+        var casual = userTypePlot.selectAll('.casual')
+            .data(userTypes)
+        
+        casual.enter().append('rect')
+            .attr('class','casual bars');
+        
+        casual
+            .transition()
+            .attr('x', userW/4)
+            .attr('y', userScaleY(userTypes[0]))
+            .attr('width', 10)
+            .attr('height', userH - userScaleY(userTypes[0]))
+            .attr('transform','translate(-5,0)');
+        
+        var reg = userTypePlot.selectAll('.reg')
+            .data(userTypes);
+        
+        reg.enter().append('rect')
+            .attr('class','reg bars');
+        
+        reg
+            .transition()
+            .attr('x', userW-userW/4)
+            .attr('y', userScaleY(userTypes[1]))
+            .attr('width', 10)
+            .attr('height', userH - userScaleY(userTypes[1]))
+            .attr('transform','translate(-5,0)');
+        
+        
+      
+         
         
     });
     // end global dispatch 
@@ -289,55 +318,42 @@ function dataLoaded(err,trips,stations){
     }
     
 
-////// APPENDING MAP //////       
-    
-    
-//    var map = plot.selectAll('path')
-//		.data(neighborhoods_json.features);
-//
-//		map.enter()
-//		.append('path')
-//		.style('fill','rgb(234,234,229)')
-//		.style('stroke', 'rgb(180,180,180)')
-//		.style('fill-opacity','1')
-//		.style('stroke-opacity', '1')
-//		.attr('d',geoPath);
+  ////// APPENDING MAP //////        
+            // creating projection for boston 
+            var albersProjection = d3.geo.albers()
+                .scale( 400000 )
+                .rotate( [71.057,0] )
+                .center( [-0.030, 42.347] )
+                .translate( [mapW/2,mapH/2] );
+        
+            var geoPath = d3.geo.path()
+                .projection(albersProjection);
+            
+            // drawing boston neighborhoods
+            var neighborhoods = map.append('g').attr('id', 'neighborhoods');
+        
+            neighborhoods.selectAll('path')
+                .data(neighborhoods_json.features)
+                .enter()
+                .append('path')
+                .attr('d', geoPath);
+        
+            var stationDots = map.selectAll('.circle')
+                .data(stations);
+            
+            stationDots.enter().append('circle')
+                .attr('class','circle');
+            
+            stationDots
+                .filter(function(d){return d.stationsName})
+                .attr('r',3)
+                 .attr('cx', function(d){
+                    var xy = albersProjection(d.lngLat);
+                    return xy[0]})
+                .attr('cy', function(d){
+                    var xy = albersProjection(d.lngLat);
+                    return xy[1]})   
 
-    
-    // creating projection for boston 
-    var albersProjection = d3.geo.albers()
-        .scale( 400000 )
-        .rotate( [71.057,0] )
-        .center( [-0.030, 42.347] )
-        .translate( [mapW/2,mapH/2] );
-
-    var geoPath = d3.geo.path()
-        .projection(albersProjection);
-    
-    // drawing boston neighborhoods
-    var neighborhoods = map.append('g').attr('id', 'neighborhoods');
-
-    neighborhoods.selectAll('path')
-        .data(neighborhoods_json.features)
-        .enter()
-        .append('path')
-        .attr('d', geoPath);
-
-    var stationDots = map.append('g').attr('class','circle')
-    
-    stationDots.selectAll('.circle')
-        .data(stations)
-        .enter()
-        .append('circle')
-        .attr('r',3)
-         .attr('cx', function(d){
-            var xy = albersProjection(d.lngLat);
-            return xy[0]})
-        .attr('cy', function(d){
-            var xy = albersProjection(d.lngLat);
-            return xy[1]})
-    
-    //stationDots.exit().remove();
     
 };
 // end dataLoaded
@@ -352,6 +368,7 @@ function parse(d){
         endTime: parseDate(d.end_date),
         startStation: d.strt_statn,
         endStation: d.end_statn,
+        userType: d.subsc_type
         //gender:d.gender,//can read string d.gender=="" ? "none" :d.gender
         //birthDate:+d.birth_date,
         //data:d3.map
@@ -366,6 +383,8 @@ function parseDate(date){
 function parseStations(d){
     //setting values for earlier defined map 
     stationsName.set(d.id,d.station); 
+    
+    stationsSpot.set([+d.lng,+d.lat], d.station);
     
     return {
         lngLat: [+d.lng,+d.lat],
