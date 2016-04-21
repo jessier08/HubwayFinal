@@ -1,11 +1,19 @@
+text{
+    font-family: Helvetica;
+}
+.stationText{
+    font-size:.9em;
+}
 .container{
-    width:1000px;
+    width:1200px;
     height:100%;
     margin-left:auto;
     margin-right:auto;
     margin-bottom:50px;
 }
-
+.start-date{
+    font-size:1em;
+}
 /*title css*/
 #title{
     height:30px;
@@ -37,12 +45,15 @@
 /*time series css*/
 #plot{
     height: 160px;
-    width:1000px;
+    width:1200px;
     margin-bottom:30px;
     margin-top:-30px;
 }
+.axis-x{
+    font-size:.6em;
+}
 #trips{
-    width:425px;
+    width:650px;
     float:left;
 }
 #stations{
@@ -53,13 +64,16 @@
     font-weight:300;
     font-size:.8em;
 }
-.start{
-    width:45%;
+#startBox{
+    width:38%;
     float:left;
 }
-.end{
-    width:50%;
-    float:left;
+#startBox p{
+    text-align:right;
+}
+#endBox{
+    width:35%;
+    float:right;
 }
 
 #graphs{
@@ -117,10 +131,10 @@
 
 /*map css*/
 #map{
-    width:550px;
+    width:500px;
     height:500px;
     float:left;
-    margin-left:25px;
+    margin-left:50px;
 }
 
 #neighborhoods path{
