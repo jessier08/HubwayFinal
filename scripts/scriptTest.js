@@ -66,10 +66,9 @@ function dataLoaded(err,trips,stations){
     // START GLOBAL DISPATCH //
     // putting the date range into DOM 
     globalDispatcher.on('changetimeextent',function(extent){
-        d3.select('.ranges').select('.start-date').html
-        (extent[0].getFullYear()+'/'+
-        (extent[0].getMonth()+1)+'/'+extent[0].getDate()+'&nbsp;-&nbsp;');
-        d3.select('.ranges').select('.end-date').html(extent[1].getFullYear()+'/'+(extent[1].getMonth()+1)+'/'+extent[1].getDate());
+        d3.select('.ranges').select('.start-date').html(extent[0].getMonth()+1+'/'+extent[0].getDate()+'/'+extent[0].getFullYear()+' - ');
+        d3.select('.ranges').select('.end-date').html(extent[1].getMonth()+1+'/'+extent[1].getDate()+'/'+extent[1].getFullYear());
+        
 
     
         // filter selected trips, return the amount of trips to DOM  
@@ -142,11 +141,12 @@ function dataLoaded(err,trips,stations){
 ////// PLOTTING POPULAR STATION TEXT //////
         if(d3.select('#start')){
             d3.select('#start').remove();  
+            d3.select('#end').remove();
         }
-        if(d3.select('#end')){
-            d3.select('#end').remove();  
-        }
-        
+//        if(d3.select('#end')){
+//            d3.select('#end').remove();  
+//        }
+//        
         // append svg to print start stations to DOM
         var startSvg = d3.select('#startBox')
             .append('svg')
@@ -240,11 +240,7 @@ function dataLoaded(err,trips,stations){
             .attr('width', 10)
             .attr('height', userH - userScaleY(userTypes[1]))
             .attr('transform','translate(-5,0)');
-        
-        
-      
-         
-        
+  
     });
     // end global dispatch 
 
@@ -265,7 +261,7 @@ function dataLoaded(err,trips,stations){
                 return (tick.getMonth()+1) + ' / ' + tick.getFullYear()  ;   
                 return tick.getMonth()+1;
             })
-
+    d3.selectAll('.t')
     // create histogram function
     var layout = d3.layout.histogram()
         .value(function(d){return d.startTime})
@@ -291,7 +287,7 @@ function dataLoaded(err,trips,stations){
     plot.append('g').attr('class','axis axis-x')
         .attr('transform','translate(0,'+h+')')
         .call(axisX);
-
+    d3.selectAll('.tick > text').attr('class','axisFont')
     // implement brush
     var brush = d3.svg.brush()
         .x(scaleX)

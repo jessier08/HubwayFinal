@@ -1,8 +1,12 @@
 text{
     font-family: Helvetica;
 }
+.date .start-date, .end-date, .count, .stationText{
+    font-size:10px;
+    font-weight:500;
+}
 .stationText{
-    font-size:.9em;
+    font-weight:500;
 }
 .container{
     width:1200px;
@@ -11,10 +15,15 @@ text{
     margin-right:auto;
     margin-bottom:50px;
 }
-.start-date{
-    font-size:1em;
+
+#intro{
+    background-color: #4AA948;
+    width:100%;
+    height:82vh;
 }
+
 /*title css*/
+/*
 #title{
     height:30px;
     width:100%;
@@ -22,38 +31,36 @@ text{
     font-weight:700;
     margin-bottom:-20px;
 }
+*/
 .ranges{
-    margin-top:20px;
+    width:100%;
+    height:40px;
+    margin-top:-30px;
 }
 .date{
     width:180px;
-    float:left;
+
 }
 .date p{
     font-weight:300;
-    font-size:.8em;
+    font-size: 9px;
 }
+
+
 .tripNum{
     width:100px;
-    float:left;
+
 }
 .tripNum p{
     font-weight:300;
-    font-size:.8em;
+    font-size:9px;
 }
 
 /*time series css*/
 #plot{
     height: 160px;
     width:1200px;
-    margin-bottom:30px;
-    margin-top:-30px;
 }
-.axis-x{
-    font-size:.6em;
-}
-
-
 #trips{
     width:650px;
     float:left;
@@ -66,17 +73,17 @@ text{
 }
 #stations p{
     font-weight:300;
-    font-size:.8em;
+    font-size: 9px;
 }
 #startBox{
-    width:38%;
+    width:36%;
     float:left;
 }
 #startBox p{
     text-align:right;
 }
 #endBox{
-    width:35%;
+    width:43%;
     float:right;
 }
 
@@ -113,7 +120,7 @@ text{
 #userTypeLabel p{
     width:50%;
     text-align: center;
-    font-size:.8em;
+    font-size:9px;
     font-weight: 300;
     float:left;
 }
@@ -140,6 +147,10 @@ text{
     fill:#4AA948;
 }
 .green{
-    font-size:.9em;
+    font-size:10px;
+    font-weight:500;
     fill:#4AA948;
+}
+.axisFont{
+    font-size:9px;
 }
