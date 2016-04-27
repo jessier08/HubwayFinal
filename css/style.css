@@ -5,9 +5,7 @@ text{
     font-size:10px;
     font-weight:500;
 }
-.stationText{
-    font-weight:500;
-}
+
 .container{
     width:1200px;
     height:100%;
@@ -32,84 +30,140 @@ text{
     margin-bottom:-20px;
 }
 */
+
+#explore{
+    font-weight:300;
+    font-size:.9em;
+    position:absolute;
+    top:14;
+    opacity:.5;
+}
+#select{
+    font-weight:300;
+    font-size:.9em;
+    position:absolute;
+    top:225;
+    opacity:.5;
+}
+#left{
+    width:650px;
+    float:left;
+}
 .ranges{
     width:100%;
     height:40px;
-    margin-top:-30px;
+    margin-top:-2em;
+    margin-bottom:3em;
 }
 .date{
     width:180px;
-
 }
 .date p{
     font-weight:300;
-    font-size: 9px;
+    font-size: .8em;
 }
 
-
 .tripNum{
-    width:100px;
+    width:180px;
 
 }
 .tripNum p{
     font-weight:300;
-    font-size:9px;
+    font-size:.8em;
 }
+#start-date  #end-date #count {
+    font-size:.9em;
+}
+
+
 
 /*time series css*/
 #plot{
-    height: 160px;
+    height: 180px;
     width:1200px;
 }
 #trips{
     width:650px;
-    float:left;
+    margin-top:65px;
 }
+
+
 
 /*top stations css*/
 #stations{
-    height:350;
+    height:100%;
     width:100%;
 }
 #stations p{
     font-weight:300;
-    font-size: 9px;
+    font-size: .8em;
+    margin-top:-4px;
+    margin-bottom:2.5em;
 }
 #startBox{
-    width:36%;
+    width:38%;
     float:left;
 }
 #startBox p{
     text-align:right;
 }
+.stationText{
+    font-size: .9em;
+    font-weight:500;
+    margin-bottom:2.5em;
+}
+.startText{
+    text-align: right;
+}
+.endText{
+    color:rgb(80,80,80);
+    opacity:.5;
+}
+.green{
+    color:#4AA948;
+    text-align: right;
+    font-weight:500;
+    margin-bottom:2.5em;
+    font-size: .9em;
+}
+#lineBox{
+    width:24%;
+    height:300px;
+    float:left;
+}
 #endBox{
-    width:43%;
-    float:right;
+    width:38%;
+    float:left;
 }
 
+
+/*
 
 #graphs{
     height:150px;
     width:100%;
+    margin-top:-25px;
 }
+*/
 
 /*hourly usage series css*/
 #time{
     height:100%;
-    width:70%;
+    width:45%;
     float:left;
-    opacity:.6;
+/*    background-color:lawngreen;*/
 }
-
 
 /*user type graph css*/
 #userTypeGraph{
     height:100%;
     width:30%;
     float:left;
+    margin-left:8%
+/*    background-color:antiquewhite;*/
 }
 #userType{
-    height:85%;
+    height:80%;
     width:100%;
 }
 #userTypeLabel {
@@ -118,6 +172,13 @@ text{
 }
 
 #userTypeLabel p{
+    width:50%;
+    text-align: right;
+    font-size:9px;
+    font-weight: 300;
+    float:left;
+}
+#gender p{
     width:50%;
     text-align: center;
     font-size:9px;
@@ -136,21 +197,19 @@ text{
 }
 
 #neighborhoods path{
-    fill:rgb(220,220,220);
+    fill:rgb(230,230,230);
     stroke-width:0.5px;
     stroke: white;
 }
 .circle{
-    fill:#4AA948;
+    fill: rgb(80,80,80);
+    opacity:.5;
 }
 .bars{
     fill:#4AA948;
 }
-.green{
-    font-size:10px;
-    font-weight:500;
-    fill:#4AA948;
-}
+
 .axisFont{
-    font-size:9px;
+    font-size:.8em;
+    font-weight:300;
 }
