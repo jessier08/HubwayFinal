@@ -1,12 +1,27 @@
+text{
+    font-family: Helvetica;
+}
+.date .start-date, .end-date, .count, .stationText{
+    font-size:10px;
+    font-weight:500;
+}
+
 .container{
-    width:1000px;
+    width:1200px;
     height:100%;
     margin-left:auto;
     margin-right:auto;
     margin-bottom:50px;
 }
 
+#intro{
+    background-color: #4AA948;
+    width:100%;
+    height:82vh;
+}
+
 /*title css*/
+/*
 #title{
     height:30px;
     width:100%;
@@ -14,115 +29,188 @@
     font-weight:700;
     margin-bottom:-20px;
 }
+*/
+
+#explore{
+    font-weight:300;
+    font-size:.9em;
+    position:absolute;
+    top:14;
+    opacity:.5;
+}
+#select{
+    font-weight:300;
+    font-size:.9em;
+    position:absolute;
+    top:225;
+    opacity:.5;
+}
+#left{
+    width:650px;
+    float:left;
+}
 .ranges{
-    margin-top:20px;
+    width:100%;
+    height:40px;
+    margin-top:-2em;
+    margin-bottom:3em;
 }
 .date{
     width:180px;
-    float:left;
 }
 .date p{
     font-weight:300;
-    font-size:.8em;
+    font-size: .8em;
 }
+
 .tripNum{
-    width:100px;
-    float:left;
+    width:180px;
+
 }
 .tripNum p{
     font-weight:300;
     font-size:.8em;
 }
+#start-date  #end-date #count {
+    font-size:.9em;
+}
+
+
 
 /*time series css*/
 #plot{
-    height: 160px;
-    width:1000px;
-    margin-bottom:30px;
-    margin-top:-30px;
+    height: 180px;
+    width:1200px;
 }
 #trips{
-    width:425px;
-    float:left;
+    width:650px;
+    margin-top:65px;
 }
+
+
+
+/*top stations css*/
 #stations{
-    height:350;
+    height:100%;
     width:100%;
 }
 #stations p{
     font-weight:300;
-    font-size:.8em;
+    font-size: .8em;
+    margin-top:-4px;
+    margin-bottom:2.5em;
 }
-.start{
-    width:45%;
+#startBox{
+    width:38%;
     float:left;
 }
-.end{
-    width:50%;
+#startBox p{
+    text-align:right;
+}
+.stationText{
+    font-size: .9em;
+    font-weight:500;
+    margin-bottom:2.5em;
+}
+.startText{
+    text-align: right;
+}
+.endText{
+    color:rgb(80,80,80);
+    opacity:.5;
+}
+.green{
+    color:#4AA948;
+    text-align: right;
+    font-weight:500;
+    margin-bottom:2.5em;
+    font-size: .9em;
+}
+#lineBox{
+    width:24%;
+    height:100%;
     float:left;
 }
+#endBox{
+    width:38%;
+    float:left;
+}
+
+
+/*
 
 #graphs{
     height:150px;
     width:100%;
+    margin-top:-25px;
 }
+*/
 
+/*hourly usage series css*/
 #time{
     height:100%;
-    width:70%;
+    width:45%;
     float:left;
-    background-color:#4AA948;
-    opacity:.6;
+/*    background-color:lawngreen;*/
 }
-#userType{
+
+/*user type graph css*/
+#userTypeGraph{
     height:100%;
     width:30%;
     float:left;
-    opacity:.7;
+    margin-left:8%
+/*    background-color:antiquewhite;*/
 }
-.userTypeText{
+#userType{
+    height:80%;
+    width:100%;
+}
+#userTypeLabel {
+    height:10%;
+    width:100%;
+}
+
+#userTypeLabel p{
+    width:50%;
+    text-align: right;
+    font-size:9px;
+    font-weight: 300;
+    float:left;
+}
+#gender p{
     width:50%;
     text-align: center;
+    font-size:9px;
+    font-weight: 300;
     float:left;
-    font-weight:300;
-    font-size:.8em;
-    padding-top:100%;
 }
-#casualBar #regBar{
-    width:50%;
-    height:90%;
-    background-color:aqua;
-}
-#casualTitle #regTitle{
-    width:50%;
-    height:10%;
-    background-color:green;
-}
+
 
 
 /*map css*/
 #map{
-    width:550px;
+    width:500px;
     height:500px;
     float:left;
-    margin-left:25px;
+    margin-left:50px;
+    margin-top:18px;
 }
 
 #neighborhoods path{
-    fill:rgb(200,200,200);
-    opacity:.5;
+    fill:rgb(230,230,230);
     stroke-width:0.5px;
     stroke: white;
 }
 .circle{
-    fill:#4AA948;
+    fill: rgb(80,80,80);
+    opacity:.5;
 }
-
-
 .bars{
     fill:#4AA948;
 }
 
-.stationNames{
-    font-size:2em;
+.axisFont{
+    font-size:.8em;
+    font-weight:300;
 }
