@@ -355,6 +355,17 @@ function dataLoaded(err,trips,stations){
                     return xy[1]})   
 
     
+
+
+    var init_timeExtent = [new Date(2011,7,20),new Date(2013,7,20)]
+
+    $( document ).ready(function() {
+    console.log( "this gets triggered when everything is loaded on the page... you get the idea!" );
+    globalDispatcher.changetimeextent(init_timeExtent)
+    });
+
+
+
 };
 // end dataLoaded
 
