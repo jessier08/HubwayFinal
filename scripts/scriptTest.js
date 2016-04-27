@@ -26,35 +26,12 @@ var stationLines = d3.select('#lineBox')
     .attr('width', linesW)
     .attr('height', linesH);
 
-// margins and div selection for gender type graph
-//var genderM = {t:0,r:0,b:0,l:0},
-//    genderW = d3.select('#genderType').node().clientWidth,
-//    genderH = d3.select('#genderType').node().clientHeight;
-//
-//var genderTypePlot = d3.select('#genderType').append('svg')
-//    .attr({width: userW, height: userH});
-//
-//var genderScaleY = d3.scale.linear().range([genderH,0]);
-
-// margins and div selection for user type graph
-//var userM = {t:0,r:0,b:0,l:0},
-//    userW = d3.select('#userType').node().clientWidth,
-//    userH = d3.select('#userType').node().clientHeight;
-//
-//var userTypePlot = d3.select('#userType').append('svg')
-//    .attr({width: userW, height: userH});
-//
-//var userScaleY = d3.scale.linear().range([userH/1.5,20]);
-
 // create dispatcher 
 var globalDispatcher = d3.dispatch('changetimeextent');
 
 // create map for station names
 var stationsName = d3.map(),
     stationsSpot = d3.map();
-
-//console.log(stationsName);
-//console.log(stationsSpot);
 
 // LOAD DATA
 queue()
@@ -81,19 +58,21 @@ function dataLoaded(err,trips,stations){
     // group by start time
     var cf = crossfilter(trips),
         tripsByStartTime = cf.dimension(function(d){return d.startTime});
-        //tripsByDuration = cf.dimension(function(d){return d.duration});
 
     // START GLOBAL DISPATCH //
     // putting the date range into DOM 
     globalDispatcher.on('changetimeextent',function(extent){
-        d3.select('.ranges').select('.start-date').html(extent[0].getMonth()+1+'/'+extent[0].getDate()+'/'+extent[0].getFullYear()+' - ');
-        d3.select('.ranges').select('.end-date').html(extent[1].getMonth()+1+'/'+extent[1].getDate()+'/'+extent[1].getFullYear());
+        d3.select('.ranges').select('.start-date')     
+            .html(extent[0].getMonth()+1+'/'+extent[0].getDate()+'/'+extent[0].getFullYear()+' - ');
+        d3.select('.ranges').select('.end-date')
+            .html(extent[1].getMonth()+1+'/'+extent[1].getDate()+'/'+extent[1].getFullYear());
          
         // filter selected trips, return the amount of trips to DOM  
         tripsByStartTime.filterRange(extent);
         
         d3.select('.ranges').select('.count').html(tripsByStartTime.top(Infinity).length);
 
+        // new data is filtered by user's brush extent
         var newData = tripsByStartTime.top(Infinity);
         
         //console.log(newData);
@@ -201,21 +180,18 @@ function dataLoaded(err,trips,stations){
 ////// PLOTTING POPULAR STATION TEXT //////
         // A NEW WAY WITH DIV TEXT
         if(d3.select('.startText')){
-            d3.select('.startText').remove();    
-        }
-        if(d3.select('.endText')){
-            d3.select('.endText').remove();    
-        }
-        
+            d3.select('.startText').remove();
+            d3.select('.endText').remove(); 
+        }       
         
         var startText = d3.select('#startBox')
             .selectAll('.startText')
             .data(topStationsArray);
-                    
-        var x,y;
         
         startText.enter()
             .append('div')
+        
+        startText
             .text(function(d){return d;})
             .attr('class','stationText startText')
             .on('mouseover', function(){
@@ -246,6 +222,8 @@ function dataLoaded(err,trips,stations){
         
         endText.enter()
             .append('div')
+        
+        endText
             .text(function(d){return d;})
             .attr('class','stationText endText');
         

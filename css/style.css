@@ -128,7 +128,7 @@ text{
 }
 #lineBox{
     width:24%;
-    height:300px;
+    height:100%;
     float:left;
 }
 #endBox{
@@ -194,6 +194,7 @@ text{
     height:500px;
     float:left;
     margin-left:50px;
+    margin-top:18px;
 }
 
 #neighborhoods path{
