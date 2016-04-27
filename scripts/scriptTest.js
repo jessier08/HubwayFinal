@@ -136,6 +136,21 @@ function dataLoaded(err,trips,stations){
             topEndStationsArray.push(topEndStations[i].key);
         }
         
+        var tripEndingStations = cf.dimension(function(d){return d.endStationName});
+        
+        var tripsGroupedbyEndStation = tripEndingStations.group();
+        
+        var tripEndingStations = [],
+            tripEndingStationsString = "",
+            topEndStationsPerStation = tripsGroupedbyEndStation.top(3);
+        
+        for (var i=0; i<topEndStationsPerStation.length; i++){
+            tripEndingStationsString = tripEndingStationsString + topEndStationsPerStation[i].key + " ";
+            tripEndingStations.push(topEndStationsPerStation[i].key);
+        }
+        
+        console.log(tripEndingStations[1]);
+        
 ////// PLOTTING POPULAR STATION TEXT //////
         // THE OLD WAY WITH TSPAN
 //        if(d3.select('#start')){
