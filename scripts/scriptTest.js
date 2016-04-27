@@ -152,47 +152,6 @@ function dataLoaded(err,trips,stations){
         console.log(tripEndingStations[1]);
         
 ////// PLOTTING POPULAR STATION TEXT //////
-        // THE OLD WAY WITH TSPAN
-//        if(d3.select('#start')){
-//            d3.select('#start').remove();  
-//            d3.select('#end').remove();
-//        }
-
-        // append svg to print start stations to DOM
-//        var startSvg = d3.select('#startBox')
-//            .append('svg')
-//            .attr('id','start')
-//            .attr('height',350);
-//
-//        var startText = startSvg.append('text');
-//            
-//        startText.selectAll('tspan')
-//            .data(topStationsArray)
-//            .enter()
-//            .append('tspan')
-//            .on('click', function(){
-//                var textLocation = d3.select(this).node().getBoundingClientRect().right;                         console.log(textLocation);
-//            })
-//            .attr('id',function(d,i){return i;})
-//            .attr('x',d3.select('#startBox').node().clientWidth)
-//            .attr('dy','2.75em')
-//            .text(function(d){return d;})
-//            .attr('class','stationText')
-//            .attr('text-anchor','end')
-//            .on('mouseover', function(){
-//                d3.select(this).attr('class','green');
-//                //console.log(this.id);
-//            })
-//            .on('mouseout', function(){
-//                d3.select(this).attr('class','stationText');
-//                //console.log(this.id);
-//            });
-//        
-//         if(d3.select('#startBox')){
-//            d3.select('#startBox').exit().remove();  
-//            d3.select('#endBox').exit().remove();
-//        }
-////// PLOTTING POPULAR STATION TEXT //////
         // A NEW WAY WITH DIV TEXT
         if(d3.select('.startText')){
             d3.select('.startText').remove();
@@ -466,17 +425,6 @@ function dataLoaded(err,trips,stations){
            
 
     
-
-
-    var init_timeExtent = [new Date(2011,7,20),new Date(2013,7,20)]
-
-    $( document ).ready(function() {
-    console.log( "this gets triggered when everything is loaded on the page... you get the idea!" );
-    globalDispatcher.changetimeextent(init_timeExtent)
-    });
-
-
-
 };
 // end dataLoaded
 
