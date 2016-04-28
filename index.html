@@ -11,24 +11,35 @@
     
 <body>
     <div id="intro">
+        <img class="bike" src="bike.gif">
+        <div>
+            <p class="introP">Hubway<br>Top Trips</p>
+            <p class="subtitle">Here is some intro text I will write at a later date. A little primer for our project idea, this is an exploration blah blah. A little primer for our project idea, this is an exploration.<br><br>A collaboration between Jessie Richards &amp; Jin Wang </p>
+        </div>   
     </div>
-    <div class="container">
+    
+    <div id="content" class="container">
         <div id="title"></div>
-        <div id="explore">Click and drag on timeline to explore</div>
+        <div id="explore">Click and drag on timeline to explore, select start station for popular trips</div>
         <div id="plot">
         </div>
         <div id="left">
             <div class="ranges"> 
                     <div class="date">
-                        <p>date range: &nbsp;&nbsp;&nbsp;<span class="start-date"></span>
+                        <p>
+                            date range: &nbsp;&nbsp;&nbsp;
+                            <span class="start-date"></span>
                             <span class="end-date"></span>
                         </p>
                     </div>
                     <div class="tripNum">
-                        <p># of trips: &nbsp;&nbsp;<span class="count"></span></p>
+                        <p>
+                            # of trips: &nbsp;&nbsp;
+                            <span class="count"></span>
+                        </p>
                     </div>
             </div>
-            <div id="select">Select start station for popular trips</div>
+<!--            <div id="select">Select start station for popular trips</div>-->
             <div id="trips">
                 <div id="stations">
                     <div id="startBox">
@@ -39,24 +50,6 @@
                         <p>top end stations</p>
                     </div>  
                 </div>
-<!--
-                <div id="graphs">
-                    <div id="gender">
-                        <div id="genderType"></div>
-                        <div id="genderLabel">
-                            <p>Male</p><p>Female</p>
-                        </div>
-                    </div>
-                    
-                    <div id="userTypeGraph">
-                        <div id="userType"></div>
-                        <div id="userTypeLabel">
-                            <p># casual users</p><p># registered users</p>
-                        </div>
-                    </div>
-                    <div id="time"></div>
-                </div>
--->
             </div>
         </div>
         
@@ -69,7 +62,7 @@
     <script src="lib/queue/queue.min.js"></script>
     <script src="lib/crossfilter/crossfilter.js"></script>
     <script src="data/neighborhoods2.js"></script>
-    <script src="scripts/scriptTest.js"></script>
+    <script src="scripts/scriptTestJESSIE.js"></script>
 <!--    <script src="scripts/modules/timeSeries.js"></script>-->
     <script src="scripts/modules/map.js"></script>
     <script src="scripts/userType.js"></script>
