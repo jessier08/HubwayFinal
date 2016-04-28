@@ -138,8 +138,8 @@ function dataLoaded(err,trips,stations){
 ////// PLOTTING POPULAR STATION TEXT //////
         if (nestednewData.length==0){
             if (d3.select('.startText')) {
-            d3.select('.startText').remove();
-            d3.select('.endText').remove(); 
+                d3.select('.startText').remove();
+                d3.select('.endText').remove(); 
             }
             return;
         }
@@ -206,10 +206,8 @@ function dataLoaded(err,trips,stations){
 
                 endText
                     .text(function(d){return d.key;})
-                    .attr('class','stationText endText')
-                    .on('mouseover', function(d){
-                        d3.select('#stationDot'+d.key).attr('r',6).attr('class','greenCircle');
-                    });
+                    .attr('class','stationText endText');
+                    
             
 //                    var test = d3.selectAll('.endText').select('#A').node().getBoundingClientRect.left();
                     
@@ -238,8 +236,8 @@ function dataLoaded(err,trips,stations){
             .on('mouseout', function(d){
                 d3.select(this).attr('class','startText stationText');
                 d3.select('#stationDot'+d.key).attr('r',3).attr('class','circle');
+            
             });
-        
 //        // end stations 
 //        var endText = d3.select('#endBox')
 //            .selectAll('.endText')
