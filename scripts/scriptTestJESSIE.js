@@ -95,7 +95,7 @@ function dataLoaded(err,trips,stations){
             })
 
         // get most freq start stations
-        var topStations = nestedStations.slice(0,5);
+        var topStations = nestedStations.slice(0,10);
         //console.log(topStations);
         
         // placeholders for start station names
@@ -110,29 +110,29 @@ function dataLoaded(err,trips,stations){
             topStationsArray.push(topStations[i].name);
         }
         
-       // make crossfilter to find most freq end stations from top station list
-        var cf = crossfilter(trips)
-            tripsByStartStation = cf
-                .dimension(function(d){return d.startStationName}),
-            tripsByStartStation.filter(topStationsArray);
-        
-        // start filtering data by end station
-        var tripsByEndStation = cf.dimension(function(d){return d.endStationName});
-
-        // now group by end stations, return most frequent stations 
-        var tripsGroupByEndStation = tripsByEndStation.group(),
-            topEndStations = tripsGroupByEndStation.top(15);
-        
-        // placeholders for end station names
-        var topEndStationsArray = [],
-            topEndStationsString = "";
-
-        // fill top end stations array
-        for(var i=0;i<topEndStations.length;i++){
-            topEndStationsString = topEndStationsString + topEndStations[i].key + " ";
-            //console.log(topEndStationsString);
-            topEndStationsArray.push(topEndStations[i].key);
-        }
+//       // make crossfilter to find most freq end stations from top station list
+//        var cf = crossfilter(trips)
+//            tripsByStartStation = cf
+//                .dimension(function(d){return d.startStationName}),
+//            tripsByStartStation.filter(topStationsArray);
+//        
+//        // start filtering data by end station
+//        var tripsByEndStation = cf.dimension(function(d){return d.endStationName});
+//
+//        // now group by end stations, return most frequent stations 
+//        var tripsGroupByEndStation = tripsByEndStation.group(),
+//            topEndStations = tripsGroupByEndStation.top(10);
+//        
+//        // placeholders for end station names
+//        var topEndStationsArray = [],
+//            topEndStationsString = "";
+//
+//        // fill top end stations array
+//        for(var i=0;i<topEndStations.length;i++){
+//            topEndStationsString = topEndStationsString + topEndStations[i].key + " ";
+//            //console.log(topEndStationsString);
+//            topEndStationsArray.push(topEndStations[i].key);
+//        }
  
         
 ////// PLOTTING POPULAR STATION TEXT //////
@@ -177,52 +177,62 @@ function dataLoaded(err,trips,stations){
                 //now group end stations, creates value on the key
                 var tripsGroupByEndStationForThis = tripsByEndStationforThis.group();
 
-                console.log(tripsGroupByEndStationForThis.top(3));
+                console.log(tripsGroupByEndStationForThis.top(10));
             
                 var topEndingforThisArray = [],
                     topEndingforThisString = "",
-                    top3EndStations = tripsGroupByEndStationForThis.top(3),
+                    top3EndStations = tripsGroupByEndStationForThis.top(10),
                     numTripsPerEndStation = [];
-
-                for(var i=0;i<tripsGroupByEndStationForThis.top(3).length;i++){
+                
+                for(var i=0;i<tripsGroupByEndStationForThis.top(5).length;i++){
                     topEndingforThisString = topEndingforThisString +
-                        tripsGroupByEndStationForThis.top(3)[i].key + " " ;
+                        tripsGroupByEndStationForThis.top(5)[i].key + " " ;
                     
-                    topEndingforThisArray.push(tripsGroupByEndStationForThis.top(3)[i].key);
+                    topEndingforThisArray.push(tripsGroupByEndStationForThis.top(10)[i].key);
+                    numTripsPerEndStation.push(tripsGroupByEndStationForThis.top(10)[i].value);
                     
-                    numTripsPerEndStation.push(tripsGroupByEndStationForThis.top(3)[i].value);
                     x1 = d3.select(this).node().getBoundingClientRect().right;
                     y1 = d3.select(this).node().getBoundingClientRect().top;
                     
-                    var filteredDivs = d3.selectAll('.endText').filter(function(d){
-                        var station = d3.select(this).attr('id');
-                        
-                        var A = tripsGroupByEndStationForThis.top(3)[0].key;
-                        var B = tripsGroupByEndStationForThis.top(3)[1].key;
-                        var C = tripsGroupByEndStationForThis.top(3)[2].key;
+                
+                // append top end stations 
+                var endText = d3.select('#endBox')
+                    .selectAll('.endText')
+                    .data(top3EndStations)
 
-                        
-                        if (station == 'A'){
-                            x2A = d3.select('#A').getBoundingClientRect().right;
-                            y2A = d3.select('#A').getBoundingClientRect().top;
-                        }
-                        if (station == 'B'){
-                            x2B = d3.select('#B').node().getBoundingClientRect().right;
-                            y2B = d3.select('#B').node().getBoundingClientRect().top;
-                        }
+                endText.enter()
+                    .append('div')
+                    .attr('id',function(d){return d;});
+
+                endText
+                    .text(function(d){return d.key;})
+                    .attr('class','stationText endText')
+                    .on('mouseover', function(d){
+                        d3.select('#stationDot'+d.key).attr('r',6).attr('class','greenCircle');
                     });
+            
+//                    var test = d3.selectAll('.endText').select('#A').node().getBoundingClientRect.left();
                     
                     
-                    console.log(x2A,y2A);
-                    
-                    // write a functio  to d3.select('.endText') if endText contains keys from tripsGroupByEndStationForThis, then find BoundClientRect for each of them????
-                    
-                    
-                    
-                    //console.log(x1,y1);
-                    
-                }
+                    //d3.select('#stationDot'+d.key).attr('r',6).attr('class','greenCircle');
+//                    var stationA;
+//                    
+//                    var filteredDivs = d3.selectAll('.endText').filter(function(d){
+//                        
+//                        var stationA = d3.select('#A').
+//                        
+//                        if (station == 'A'){
+//                            x2A = d3.select('#A').getBoundingClientRect().right;
+//                            y2A = d3.select('#A').getBoundingClientRect().top;
+//                        }
+//                        if (station == 'B'){
+//                            x2B = d3.select('#B').node().getBoundingClientRect().right;
+//                            y2B = d3.select('#B').node().getBoundingClientRect().top;
+//                        }
+//                    });
+//                    
 
+                }
                 //console.log(topEndingforThisArray);
             })
             .on('mouseout', function(d){
@@ -230,18 +240,18 @@ function dataLoaded(err,trips,stations){
                 d3.select('#stationDot'+d.key).attr('r',3).attr('class','circle');
             });
         
-        // end stations 
-        var endText = d3.select('#endBox')
-            .selectAll('.endText')
-            .data(topEndStationsArray)
-        
-        endText.enter()
-            .append('div')
-            .attr('id',function(d){return d;});
-        
-        endText
-            .text(function(d){return d;})
-            .attr('class','stationText endText');
+//        // end stations 
+//        var endText = d3.select('#endBox')
+//            .selectAll('.endText')
+//            .data(topEndStationsArray)
+//        
+//        endText.enter()
+//            .append('div')
+//            .attr('id',function(d){return d;});
+//        
+//        endText
+//            .text(function(d){return d;})
+//            .attr('class','stationText endText');
 
         
 ////// PLOTTING STATION DOTS ON MAP //////
