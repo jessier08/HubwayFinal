@@ -43,7 +43,7 @@ text{
     font-size:.9em;
     position:absolute;
     top:225;
-    opacity:.5;
+    opacity:.5; 
 }
 #left{
     width:650px;
