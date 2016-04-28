@@ -143,6 +143,10 @@ function dataLoaded(err,trips,stations){
             }
             return;
         }
+        
+        // empty variables for line placement
+        var x1,y1,x2A,y2A,x2B,y2B,x2C,y2C;
+        
         // start stations   
         var startText = d3.select('#startBox')
             .selectAll('.startText')
@@ -161,12 +165,14 @@ function dataLoaded(err,trips,stations){
                 d3.select(this).attr('class','green');
                 d3.select('#stationDot'+d.key).attr('r',6).attr('class','greenCircle');
             
-                var newCross = crossfilter(trips);
+                var cf = crossfilter(trips),
+                    tripsByThisStation = cf.dimension(function(d){
+                    return d.startStationName});
             
-                var tripsByThisStation = newCross.dimension(function(d){return d.startStationName});
-                tripsByThisStation.filter(d.name);
+                    tripsByThisStation.filter(d.name);
 
-                var tripsByEndStationforThis = newCross.dimension(function(d){return d.endStationName});
+                var tripsByEndStationforThis = cf.dimension(function(d){
+                    return d.endStationName});
 
                 //now group end stations, creates value on the key
                 var tripsGroupByEndStationForThis = tripsByEndStationforThis.group();
@@ -174,11 +180,47 @@ function dataLoaded(err,trips,stations){
                 console.log(tripsGroupByEndStationForThis.top(3));
             
                 var topEndingforThisArray = [],
-                    topEndingforThisString = "";
+                    topEndingforThisString = "",
+                    top3EndStations = tripsGroupByEndStationForThis.top(3),
+                    numTripsPerEndStation = [];
 
                 for(var i=0;i<tripsGroupByEndStationForThis.top(3).length;i++){
-                    topEndingforThisString = topEndingforThisString + tripsGroupByEndStationForThis.top(3)[i].key + " ";
+                    topEndingforThisString = topEndingforThisString +
+                        tripsGroupByEndStationForThis.top(3)[i].key + " " ;
+                    
                     topEndingforThisArray.push(tripsGroupByEndStationForThis.top(3)[i].key);
+                    
+                    numTripsPerEndStation.push(tripsGroupByEndStationForThis.top(3)[i].value);
+                    x1 = d3.select(this).node().getBoundingClientRect().right;
+                    y1 = d3.select(this).node().getBoundingClientRect().top;
+                    
+                    var filteredDivs = d3.selectAll('.endText').filter(function(d){
+                        var station = d3.select(this).attr('id');
+                        
+                        var A = tripsGroupByEndStationForThis.top(3)[0].key;
+                        var B = tripsGroupByEndStationForThis.top(3)[1].key;
+                        var C = tripsGroupByEndStationForThis.top(3)[2].key;
+
+                        
+                        if (station == 'A'){
+                            x2A = d3.select('#A').getBoundingClientRect().right;
+                            y2A = d3.select('#A').getBoundingClientRect().top;
+                        }
+                        if (station == 'B'){
+                            x2B = d3.select('#B').node().getBoundingClientRect().right;
+                            y2B = d3.select('#B').node().getBoundingClientRect().top;
+                        }
+                    });
+                    
+                    
+                    console.log(x2A,y2A);
+                    
+                    // write a functio  to d3.select('.endText') if endText contains keys from tripsGroupByEndStationForThis, then find BoundClientRect for each of them????
+                    
+                    
+                    
+                    //console.log(x1,y1);
+                    
                 }
 
                 //console.log(topEndingforThisArray);
@@ -195,6 +237,7 @@ function dataLoaded(err,trips,stations){
         
         endText.enter()
             .append('div')
+            .attr('id',function(d){return d;});
         
         endText
             .text(function(d){return d;})
