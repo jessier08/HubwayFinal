@@ -1,31 +1,29 @@
+
 // margins and div selection for timeSeries histogram
 var m = {t:50,r:0,b:50,l:0},
     w = d3.select('#plot').node().clientWidth,
-    h = d3.select('#plot').node().clientHeight;
-
-var plot = d3.select('#plot').append('svg')
-    .attr({width: w, height: h})
-    .append('g')
-    .attr('transform','translate('+m.l+','+ -m.b+')');
+    h = d3.select('#plot').node().clientHeight,
+    plot = d3.select('#plot').append('svg')
+        .attr({width: w, height: h})
+        .append('g')
+        .attr('transform','translate('+m.l+','+ -m.b+')');
 
 // margins and div selection for map
 var mapW = d3.select('#map').node().clientWidth,
-    mapH = d3.select('#map').node().clientHeight;
-    
-var map = d3.select('#map')
-    .append('svg')
-    .attr('width', mapW)
-    .attr('height', mapH);
+    mapH = d3.select('#map').node().clientHeight,
+    map = d3.select('#map')
+        .append('svg')
+        .attr('width', mapW)
+        .attr('height', mapH);
 
 // margins and div selection for map
 var linesW = d3.select('#lineBox').node().clientWidth,
-    linesH = d3.select('#lineBox').node().clientHeight;
-    
-var stationLines = d3.select('#lineBox')
-    .append('svg')
-    .attr('class','visibleLine')
-    .attr('width', linesW)
-    .attr('height', linesH);
+    linesH = d3.select('#lineBox').node().clientHeight,
+    stationLines = d3.select('#lineBox')
+        .append('svg')
+        .attr('class','visibleLine')
+        .attr('width', linesW)
+        .attr('height', linesH);
 
 // create dispatcher 
 var globalDispatcher = d3.dispatch('changetimeextent');
@@ -34,7 +32,7 @@ var globalDispatcher = d3.dispatch('changetimeextent');
 var stationsName = d3.map(),
     stationsSpot = d3.map();
 
-// LOAD DATA
+////// LOAD DATA //////
 queue()
     .defer(d3.csv,'../data/hubway_trips_reduced.csv',parse)
     .defer(d3.csv,'../data/hubway_stations_namesEdit.csv',parseStations)
@@ -96,7 +94,7 @@ function dataLoaded(err,trips,stations){
                 return d3.descending(a.total,b.total)
             })
 
-        // get top 10 most freq start stations
+        // get most freq start stations
         var topStations = nestedStations.slice(0,10);
         //console.log(topStations);
         
@@ -104,7 +102,7 @@ function dataLoaded(err,trips,stations){
         var topStationsArray = [],
             topStationsString = "";
         
-        console.log(topStations);
+        //console.log(topStations);
         
         // put the top station names in an array that will be used to print to DOM
         for(var i=0;i<topStations.length;i++){
@@ -112,72 +110,47 @@ function dataLoaded(err,trips,stations){
             topStationsArray.push(topStations[i].name);
         }
         
-       // make crossfilter to find most freq end stations from top station list
-        var cf = crossfilter(trips)
-            tripsByStartStation = cf
-                .dimension(function(d){return d.startStationName}),
-            tripsByStartStation.filter(topStationsArray);
-        
-        // start filtering data by end station
-        var tripsByEndStation = cf.dimension(function(d){return d.endStationName});
-
-        // now group by end stations, return most frequent stations 
-        var tripsGroupByEndStation = tripsByEndStation.group(),
-            topEndStations = tripsGroupByEndStation.top(10);
-        
-        // placeholders for end station names
-        var topEndStationsArray = [],
-            topEndStationsString = "";
-
-        // fill top end stations array
-        for(var i=0;i<topEndStations.length;i++){
-            topEndStationsString = topEndStationsString + topEndStations[i].key + " ";
-            //console.log(topEndStationsString);
-            topEndStationsArray.push(topEndStations[i].key);
-        }
-        
-
-        tripsByStartStation1 = cf.dimension(function(d){return d.startStationName});
-        tripsByStartStation1.filter(topStationsArray[0]);
-        //console.log(topStations.key)
-        //console.log(tripsByStartStation1.top(5));
-        var tripsByEndStation1 = cf.dimension(function(d){return d.endStationName});
-
-        //now group by end stations, on the dimension you just created
-        var tripsGroupByEndStation1 = tripsByEndStation1.group();
-
-        var KeyArray11 = [null];
-
-        var NewString11 = "";
-
-        for(var i=0;i<tripsGroupByEndStation.top(3).length;i++)
-        {
-            NewString11 = NewString11 + tripsGroupByEndStation1.top(3)[i].key + " ";
-            //console.log(NewString2);
-            KeyArray11.push(tripsGroupByEndStation1.top(3)[i].key);
-        }
-
-        KeyArray11.shift();
-
-        console.log(KeyArray11);
-        console.log(KeyArray11[0]);
-        
-        
-        
-        
-        
+//       // make crossfilter to find most freq end stations from top station list
+//        var cf = crossfilter(trips)
+//            tripsByStartStation = cf
+//                .dimension(function(d){return d.startStationName}),
+//            tripsByStartStation.filter(topStationsArray);
+//        
+//        // start filtering data by end station
+//        var tripsByEndStation = cf.dimension(function(d){return d.endStationName});
+//
+//        // now group by end stations, return most frequent stations 
+//        var tripsGroupByEndStation = tripsByEndStation.group(),
+//            topEndStations = tripsGroupByEndStation.top(10);
+//        
+//        // placeholders for end station names
+//        var topEndStationsArray = [],
+//            topEndStationsString = "";
+//
+//        // fill top end stations array
+//        for(var i=0;i<topEndStations.length;i++){
+//            topEndStationsString = topEndStationsString + topEndStations[i].key + " ";
+//            //console.log(topEndStationsString);
+//            topEndStationsArray.push(topEndStations[i].key);
+//        }
+ 
         
 ////// PLOTTING POPULAR STATION TEXT //////
-        if(d3.select('.startText')){
-            d3.select('.startText').remove();
-            d3.select('.endText').remove(); 
-        }       
+        if (nestednewData.length==0){
+            if (d3.select('.startText')) {
+                d3.select('.startText').remove();
+                d3.select('.endText').remove(); 
+            }
+            return;
+        }
         
+        // empty variables for line placement
+        var x1,y1,x2A,y2A,x2B,y2B,x2C,y2C;
+        
+        // start stations   
         var startText = d3.select('#startBox')
             .selectAll('.startText')
             .data(topStations);
-        
-        console.log(topStations);
         
         startText.enter()
             .append('div')
@@ -185,52 +158,102 @@ function dataLoaded(err,trips,stations){
         startText
             .text(function(d){return d.name;})
             .attr('class','stationText startText')
-            .attr('id',function(d){return [d3.select(this).node().getBoundingClientRect().right, d3.select(this).node().getBoundingClientRect().top];
+            .attr('id',function(d){
+                return [d3.select(this).node().getBoundingClientRect().right, d3.select(this).node().getBoundingClientRect().top];
             })
             .on('mouseover', function(d){
                 d3.select(this).attr('class','green');
+                d3.select('#stationDot'+d.key).attr('r',6).attr('class','greenCircle');
             
-//                 var xy = [d3.select(this).node().getBoundingClientRect().right, d3.select(this).node().getBoundingClientRect().top];
-//               
-//                console.log(xy);
-//            
-//                stationLines
-//                    .append('line')
-//                    .attr('x1',0)
-//                    .attr('y1',xy[1]-107.5)
-//                    .attr('x2',xy[0]+100)
-//                    .attr('y2',xy[1]+100)
-//                    .attr('stroke','black')
-//                    .attr('stroke-width',2);
-                d3.select('#stationDot'+d.key).attr('r',5).attr('class','greenCircle');
+                var cf = crossfilter(trips),
+                    tripsByThisStation = cf.dimension(function(d){
+                    return d.startStationName});
             
+                    tripsByThisStation.filter(d.name);
+
+                var tripsByEndStationforThis = cf.dimension(function(d){
+                    return d.endStationName});
+
+                //now group end stations, creates value on the key
+                var tripsGroupByEndStationForThis = tripsByEndStationforThis.group();
+
+                console.log(tripsGroupByEndStationForThis.top(10));
+            
+                var topEndingforThisArray = [],
+                    topEndingforThisString = "",
+                    top3EndStations = tripsGroupByEndStationForThis.top(10),
+                    numTripsPerEndStation = [];
+                
+                for(var i=0;i<tripsGroupByEndStationForThis.top(5).length;i++){
+                    topEndingforThisString = topEndingforThisString +
+                        tripsGroupByEndStationForThis.top(5)[i].key + " " ;
+                    
+                    topEndingforThisArray.push(tripsGroupByEndStationForThis.top(10)[i].key);
+                    numTripsPerEndStation.push(tripsGroupByEndStationForThis.top(10)[i].value);
+                    
+                    x1 = d3.select(this).node().getBoundingClientRect().right;
+                    y1 = d3.select(this).node().getBoundingClientRect().top;
+                    
+                
+                // append top end stations 
+                var endText = d3.select('#endBox')
+                    .selectAll('.endText')
+                    .data(top3EndStations)
+
+                endText.enter()
+                    .append('div')
+                    .attr('id',function(d){return d;});
+
+                endText
+                    .text(function(d){return d.key;})
+                    .attr('class','stationText endText');
+                    
+            
+//                    var test = d3.selectAll('.endText').select('#A').node().getBoundingClientRect.left();
+                    
+                    
+                    //d3.select('#stationDot'+d.key).attr('r',6).attr('class','greenCircle');
+//                    var stationA;
+//                    
+//                    var filteredDivs = d3.selectAll('.endText').filter(function(d){
+//                        
+//                        var stationA = d3.select('#A').
+//                        
+//                        if (station == 'A'){
+//                            x2A = d3.select('#A').getBoundingClientRect().right;
+//                            y2A = d3.select('#A').getBoundingClientRect().top;
+//                        }
+//                        if (station == 'B'){
+//                            x2B = d3.select('#B').node().getBoundingClientRect().right;
+//                            y2B = d3.select('#B').node().getBoundingClientRect().top;
+//                        }
+//                    });
+//                    
+
+                }
+                //console.log(topEndingforThisArray);
             })
             .on('mouseout', function(d){
                 d3.select(this).attr('class','startText stationText');
-            
-//                stationLines.attr('class','invisibleLine');
-            
                 d3.select('#stationDot'+d.key).attr('r',3).attr('class','circle');
-
+            
             });
-        
-
-        var endText = d3.select('#endBox')
-            .selectAll('.endText')
-            .data(topEndStationsArray)
-        
-        endText.enter()
-            .append('div')
-        
-        endText
-            .text(function(d){return d;})
-            .attr('class','stationText endText');
+//        // end stations 
+//        var endText = d3.select('#endBox')
+//            .selectAll('.endText')
+//            .data(topEndStationsArray)
+//        
+//        endText.enter()
+//            .append('div')
+//            .attr('id',function(d){return d;});
+//        
+//        endText
+//            .text(function(d){return d;})
+//            .attr('class','stationText endText');
 
         
 ////// PLOTTING STATION DOTS ON MAP //////
-        if(d3.select('.circle')){
-            d3.select('.circle').remove();  
-        }
+        if(d3.select('.circle')){d3.select('.circle').remove();};
           
         var stationDots = map.append('g').attr('class','circle');
         
@@ -245,9 +268,9 @@ function dataLoaded(err,trips,stations){
                 return xy[0]})
             .attr('cy', function(d){
                 var xy = albersProjection(d.lngLat);
-                return xy[1]});    
-    });
-    // end global dispatch 
+                return xy[1]});  
+        
+    }); // end global dispatch 
 
     
 ////// ALL TRIPS HISTOGRAM WITH BRUSH //////
@@ -280,7 +303,7 @@ function dataLoaded(err,trips,stations){
 
     scaleY.domain([0,maxY]);
 
-    // draw histogram
+    // draw histogram elements
     var bars = plot.selectAll('.bar')
         .data(data)
         .enter()
@@ -308,7 +331,7 @@ function dataLoaded(err,trips,stations){
 
     function brushmove() {
         var extent = brush.extent();
-        // bar highlight
+        
         bars
             .attr('class', 'bar')
             .attr('width', 1)
@@ -342,14 +365,14 @@ function dataLoaded(err,trips,stations){
         .append('path')
         .attr('d', geoPath);
     
-    // LOAD VISUALIZATION FOR ALL TRIPS WITH PAGE LOAD
+    // load page with data rendering from full brush extent
     var init_timeExtent = [new Date(2011,7,20),new Date(2013,7,20)]
-
+    
     $(document).ready(function() {
         globalDispatcher.changetimeextent(init_timeExtent)
     }); 
-};
-// end dataLoaded
+    
+}; // end dataLoaded
 
 
 // PARSING FUNCTIONS
@@ -362,12 +385,7 @@ function parse(d){
         startTime: parseDate(d.start_date),
         endTime: parseDate(d.end_date),
         startStation: d.strt_statn,
-        endStation: d.end_statn,
-        userType: d.subsc_type,
-        gender: d.gender,
-        //startHour: parseTime(d.start_date)
-        //birthDate:+d.birth_date,
-        //data:d3.map
+        endStation: d.end_statn
     };
 }
 function parseDate(date){

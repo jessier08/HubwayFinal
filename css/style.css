@@ -1,36 +1,50 @@
-text{
-    font-family: Helvetica;
-}
+text{font-family: Helvetica;}
+body {margin:0;padding:0}
+
 .date .start-date, .end-date, .count, .stationText{
     font-size:10px;
     font-weight:500;
 }
-
 .container{
     width:1200px;
-    height:100%;
+    height:900px;
     margin-left:auto;
     margin-right:auto;
-    margin-bottom:50px;
+    margin-bottom:20px;
 }
-
+#content{
+    margin-top:60px;
+}
 #intro{
     background-color: #4AA948;
     width:100%;
-    height:82vh;
+    height:90vh;
 }
-
-/*title css*/
-/*
-#title{
-    height:30px;
-    width:100%;
-    font-size:1em;
+.introP{
+    font-size:7em;
     font-weight:700;
-    margin-bottom:-20px;
+    color:white;
+    position:absolute;
+    top:100px;
+    left:36.5%;
+    width:400px;
 }
-*/
-
+.subtitle{
+    font-size:1.25em;
+    font-weight:300;
+    color:white;
+    position:absolute;
+    top:450px;
+    left:36.5%;
+    width:380px;
+    
+}
+.bike{
+    top:81vh;
+    left:8%;
+    position:absolute;
+    width:100px;
+}
 #explore{
     font-weight:300;
     font-size:.9em;
@@ -42,11 +56,12 @@ text{
     font-weight:300;
     font-size:.9em;
     position:absolute;
-    top:225;
+    top:230;
     opacity:.5;
 }
 #left{
     width:650px;
+    height: 500px;
     float:left;
 }
 .ranges{
@@ -76,7 +91,6 @@ text{
 }
 
 
-
 /*time series css*/
 #plot{
     height: 180px;
@@ -84,21 +98,21 @@ text{
 }
 #trips{
     width:650px;
-    margin-top:65px;
+    height:500px;
+    margin-top:-20px;
 }
-
 
 
 /*top stations css*/
 #stations{
-    height:100%;
+    height:450px;
     width:100%;
 }
 #stations p{
     font-weight:300;
     font-size: .8em;
     margin-top:-4px;
-    margin-bottom:2.5em;
+    margin-bottom:3em;
 }
 #startBox{
     width:38%;
@@ -110,14 +124,16 @@ text{
 .stationText{
     font-size: .9em;
     font-weight:500;
-    margin-bottom:2.5em;
+    
 }
 .startText{
     text-align: right;
+    margin-bottom:2.5em;
 }
 .endText{
     color:rgb(80,80,80);
     opacity:.5;
+    margin-bottom:2.5em;
 }
 .green{
     color:#4AA948;
@@ -137,75 +153,26 @@ text{
 }
 
 
-/*
-
-#graphs{
-    height:150px;
-    width:100%;
-    margin-top:-25px;
-}
-*/
-
-/*hourly usage series css*/
-#time{
-    height:100%;
-    width:45%;
-    float:left;
-/*    background-color:lawngreen;*/
-}
-
-/*user type graph css*/
-#userTypeGraph{
-    height:100%;
-    width:30%;
-    float:left;
-    margin-left:8%
-/*    background-color:antiquewhite;*/
-}
-#userType{
-    height:80%;
-    width:100%;
-}
-#userTypeLabel {
-    height:10%;
-    width:100%;
-}
-
-#userTypeLabel p{
-    width:50%;
-    text-align: right;
-    font-size:9px;
-    font-weight: 300;
-    float:left;
-}
-#gender p{
-    width:50%;
-    text-align: center;
-    font-size:9px;
-    font-weight: 300;
-    float:left;
-}
-
-
-
 /*map css*/
 #map{
     width:500px;
     height:500px;
     float:left;
     margin-left:50px;
-    margin-top:18px;
 }
-
 #neighborhoods path{
     fill:rgb(230,230,230);
     stroke-width:0.5px;
     stroke: white;
 }
-.circle{
-    fill: rgb(80,80,80);
-    opacity:.5;
+.greenCircle{
+    fill: #4AA948;
+    opacity:1;
 }
+.circle{
+    fill: rgb(200,200,200);
+}
+
 .bars{
     fill:#4AA948;
 }
@@ -213,4 +180,10 @@ text{
 .axisFont{
     font-size:.8em;
     font-weight:300;
+}
+.visibleLine{
+    visibility: visible;
+}
+.invisibleLine{
+    visibility: hidden;
 }
